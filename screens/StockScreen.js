@@ -88,14 +88,6 @@ const StockScreen = ({ route, navigation }) => {
           </View>
         )}
       </View>
-      <Button
-        title="Go to Dashboard Screen"
-        onPress={() => navigation.navigate("Dashboard")}
-      />
-      <Button
-        title="Go to Profile Screen"
-        onPress={() => navigation.navigate("Profile")}
-      />
     </View>
   );
 };
