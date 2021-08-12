@@ -32,12 +32,13 @@ const DashboardScreen = ({ navigation }) => {
         }}
       >
         <Text>
-          {data.company} ({data.ticker}):
+          {data.company} ({data.ticker}){"\n"} 
+          <Text style={{fontSize: 11, color: "gray"}}>{data.shares} shares</Text>
         </Text>
         <View>
           <Text style={{ fontWeight: "bold" }}>{data.lastPrice}</Text>
           <Text style={{ backgroundColor: backgroundColor }}>
-            {data.upDown}
+            {" "}{data.upDown}
             {data.lastChange}
           </Text>
         </View>
@@ -56,12 +57,12 @@ const DashboardScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.dashboard}>
-        <Text style={{ textAlign: "center", marginVertical: "4%" }}>
+      <ScrollView style={styles.dashboard}>
+        <Text style={{ textAlign: "left", marginVertical: "4%", fontSize: 24, fontWeight: "bold" }}>
           {" "}
-          My Stuff
+          My Stocks
         </Text>
-        <ScrollView>
+        {/* <ScrollView> */}
           <Ticker data={capitalOne}></Ticker>
           <Ticker data={capitalOne}></Ticker>
           <Ticker data={capitalOne}></Ticker>
@@ -72,18 +73,19 @@ const DashboardScreen = ({ navigation }) => {
           <Ticker data={capitalOne}></Ticker>
           <Ticker data={capitalOne}></Ticker>
           <Ticker data={capitalOne}></Ticker>
-        </ScrollView>
-      </View>
-      <View style={styles.order}>
-        <SearchBar />
-      </View>
+        {/* </ScrollView> */}
+      </ScrollView>
       <Button
         title="Go to Stock Screen"
-        onPress={() => navigation.navigate("StockScreen")}
+        onPress={() => navigation.navigate("Stock")}
+      />
+      <Button
+        title="Go to Search Screen"
+        onPress={() => navigation.navigate("Search")}
       />
       <Button
         title="Go to Profile Screen"
-        onPress={() => navigation.navigate("ProfileScreen")}
+        onPress={() => navigation.navigate("Profile")}
       />
     </View>
   );
@@ -95,26 +97,16 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "flex-start",
-    paddingTop: "20%",
+    paddingTop: "2%",
     borderStyle: "solid",
     borderWidth: 1,
     borderColor: "black",
   },
   dashboard: {
-    height: "40%",
     width: "96%",
     // borderStyle: 'solid',
     // borderWidth: 1,
     // borderColor: 'black',
-    marginBottom: "5%",
-  },
-  order: {
-    height: "40%",
-    width: "96%",
-    alignItems: "center",
-    borderStyle: "solid",
-    borderWidth: 1,
-    borderColor: "black",
     marginBottom: "5%",
   },
   end_day: {
@@ -132,24 +124,15 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    padding: "1%",
+    paddingHorizontal: "4%",
+    paddingVertical: "3.5%",
     marginHorizontal: "1%",
     borderStyle: "solid",
     borderWidth: 1,
-    borderColor: "black",
+    borderColor: "#c7c7c7",
     borderRadius: 10,
-    marginBottom: 5,
-  },
-  search: {
-    width: "95%",
-    paddingHorizontal: "2%",
-    marginTop: "5%",
-    height: "15%",
-    borderStyle: "solid",
-    borderColor: "black",
-    borderWidth: 1,
-    borderRadius: 20,
-  },
+    marginBottom: 10,
+  }
 });
 
 export default DashboardScreen;
