@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View, Button, StyleSheet, Image } from "react-native";
+import { Text, View, Button, StyleSheet, Image, Dimensions } from "react-native";
 import TextTicker from "react-native-text-ticker";
 import StockMarquee from "../components/StockMarquee";
 
@@ -63,10 +63,12 @@ const ProfileScreen = ({ navigation }) => {
       <View style={styles.midContainer}>
         <StockMarquee data={data} />
         <Text style={styles.headerTitle}>Hello {profile.name}!</Text>
-        <Image
-          style={styles.catImage}
-          source={require("../assets/Avatar1.png")}
-        />
+        <View style={styles.catBackground}>
+          <Image
+            style={styles.catImage}
+            source={require("../assets/Avatar1.png")}
+          />
+        </View>
         <Text style={styles.headerTitle}>{profile.occupation}</Text>
       </View>
       <View style={styles.bottomContainer}>
@@ -115,8 +117,18 @@ const styles = StyleSheet.create({
   },
   catImage: {
     flex: 1,
-    aspectRatio: 0.5,
+    aspectRatio: 0.7,
     resizeMode: "contain",
+  },
+  catBackground: {
+    borderRadius: Math.round(Dimensions.get('window').width + Dimensions.get('window').height) / 2,
+    width: Dimensions.get('window').width * 0.9,
+    height: Dimensions.get('window').width * 0.5,
+    borderColor:'#FC3C3C',
+    backgroundColor: "#0F4471",
+    borderWidth: 5,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   // stockList: {
   //   backgroundColor: "#4F5E69",

@@ -56,7 +56,7 @@ const App = () => {
           </>
         ) : (
           <>
-            <Stack.Screen name="Onboarding" component={OnboardingScreen}/>
+            <Stack.Screen name="Welcome" component={OnboardingScreen}/>
             <Stack.Screen options={{title: 'Register', ...headerOptions}} name="Register" component={RegisterScreen} />
             <Stack.Screen options={{title: 'Login', ...headerOptions}} name="Login" component={LoginScreen} />
           </>

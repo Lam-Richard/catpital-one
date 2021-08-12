@@ -49,7 +49,7 @@ const OnboardingScreen = ({navigation}) => {
             backgroundColor: '#fff',
             image: <Image 
                     style={styles.images}
-                    source={require('../assets/catbug4.png')} />,
+                    source={require('../assets/catbug3.png')} />,
             title: 'Real-Time Learning',
             subtitle: 'Invest your paycheck in real-time and receive bonuses for learning',
           },
@@ -57,7 +57,7 @@ const OnboardingScreen = ({navigation}) => {
             backgroundColor: '#fff',
             image: <Image 
                     style={styles.images}
-                    source={require('../assets/catbug3.png')} />,
+                    source={require('../assets/catbug4.png')} />,
             title: 'Build Your Purrfect Future',
             subtitle: 'something something get started',
           },
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     images: {
         resizeMode:'contain',
         // //flex: 1,
-        width: 0.5*win.width,
+        width: 0.75*win.width,
         height: 0.25*win.height
     },
 });
