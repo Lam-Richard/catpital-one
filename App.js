@@ -1,21 +1,52 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-export default function App() {
+import { auth } from './firebase/firebase';
+
+import RegisterScreen from './screens/Register';
+import LoginScreen from './screens/Login';
+import HomeScreen from './screens/Home';
+
+const Stack = createNativeStackNavigator();
+
+const App = () => {
+  const [ authenticated, setAuthenticated ] = useState(false);
+
+  useEffect(() => {
+    try {
+      const unsubscribe = auth.onAuthStateChanged(async user => {
+        if (user) setAuthenticated(true);
+        else setAuthenticated(false);
+      });
+      return () => {
+        unsubscribe();
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }, []);
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        {
+          authenticated
+          ? (
+            <>
+              <Stack.Screen name="Home" component={ HomeScreen } />
+            </>
+          )
+          : (
+            <>
+              <Stack.Screen name="Register" component={ RegisterScreen } />
+              <Stack.Screen name="Login" component={ LoginScreen } />
+            </>
+          )
+        }
+      </Stack.Navigator>
+    </NavigationContainer>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
