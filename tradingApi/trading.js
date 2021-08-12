@@ -1,4 +1,4 @@
-export const trading = () => {
+const trading = () => {
     const Alpaca = require('@alpacahq/alpaca-trade-api')
   
     const alpaca = new Alpaca({
