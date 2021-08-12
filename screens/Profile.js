@@ -1,15 +1,9 @@
 import React from "react";
-import { 
-  Text, 
-  View, 
-  Button,
-  StyleSheet,
-  Image,
- } from "react-native";
-import TextTicker from 'react-native-text-ticker'
+import { Text, View, Button, StyleSheet, Image } from "react-native";
+import TextTicker from "react-native-text-ticker";
+import StockMarquee from "../components/StockMarquee";
 
 const ProfileScreen = ({ navigation }) => {
-
   const profile = {
     name: "Sprinkles",
     money: 69.69,
@@ -17,9 +11,48 @@ const ProfileScreen = ({ navigation }) => {
     occupation: "Intern at Cat-pital One",
   };
 
-  const scrollingTicker = {
-    content: "COF   $174.55   +2.29   COF   $174.55   +2.29   COF   $174.55   +2.29   COF   $174.55   +2.29   COF   $174.55   +2.29   COF   $174.55   +2.29   COF   $174.55   +2.29   ",
-  };
+  const data = [
+    {
+      title: "COF",
+      price: 174.55,
+      change: 2.29,
+    },
+    {
+      title: "COF",
+      price: 174.55,
+      change: -2.29,
+    },
+    {
+      title: "COF",
+      price: 174.55,
+      change: -2.29,
+    },
+    {
+      title: "COF",
+      price: 174.55,
+      change: 2.29,
+    },
+    {
+      title: "COF",
+      price: 174.55,
+      change: -2.29,
+    },
+    {
+      title: "COF",
+      price: 174.55,
+      change: -2.29,
+    },
+    {
+      title: "COF",
+      price: 174.55,
+      change: 2.29,
+    },
+    {
+      title: "COF",
+      price: 174.55,
+      change: -2.29,
+    },
+  ];
 
   return (
     <View style={styles.container}>
@@ -28,22 +61,12 @@ const ProfileScreen = ({ navigation }) => {
         <Text style={styles.headerTitle}>Day {profile.day}</Text>
       </View>
       <View style={styles.midContainer}>
-        <TextTicker
-            style={{ fontSize: 24 }}
-            duration={150*scrollingTicker.content.length}
-            animationType={"scroll"}
-            loop
-            bounce
-            repeatSpacer={50}
-            marqueeDelay={1000}
-          >
-          {scrollingTicker.content}
-        </TextTicker>
+        <StockMarquee data={data} />
         <Text style={styles.headerTitle}>Hello {profile.name}!</Text>
-          <Image
-            style={styles.catImage}
-            source={require('../assets/Avatar1.png')}
-          />
+        <Image
+          style={styles.catImage}
+          source={require("../assets/Avatar1.png")}
+        />
         <Text style={styles.headerTitle}>{profile.occupation}</Text>
       </View>
       <View style={styles.bottomContainer}>
@@ -59,7 +82,6 @@ const ProfileScreen = ({ navigation }) => {
     </View>
   );
 };
-
 
 const styles = StyleSheet.create({
   container: {
@@ -82,20 +104,24 @@ const styles = StyleSheet.create({
     // padding: 50,
   },
   bottomContainer: {
-    flex: 1, 
+    flex: 1,
     // backgroundColor: "green",
     // alignItems: "center",
   },
   headerTitle: {
     fontSize: 20,
-    marginVertical: 40
+    marginVertical: 40,
     // color: "#F6F6F6",
   },
   catImage: {
     flex: 1,
     aspectRatio: 0.5,
-    resizeMode: 'contain',
+    resizeMode: "contain",
   },
+  // stockList: {
+  //   backgroundColor: "#4F5E69",
+  //   flex: 1,
+  // },
 });
 
 export default ProfileScreen;
