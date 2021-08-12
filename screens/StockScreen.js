@@ -11,9 +11,24 @@ import {
   Button,
 } from "react-native";
 import RNPickerSelect from "react-native-picker-select";
+import { buySell } from "../tradingApi/trading";
 
 const StockScreen = ({ data }) => {
   const navigation = useNavigation();
+  const [shares, setShares] = useState(10);
+  const [symbol, setSymbol] = useState('COF');
+  const [side, setSide] = useState(null);
+  const [assets, setAssets] = useState(null);
+
+  
+
+
+  async function placeOrder() { 
+    if ((side != null) && (!isNaN(shares))) {
+      const response = await buySell(symbol, shares, side);
+      return response;
+    }
+  }
 
   return (
     <View style={styles.container}>
@@ -32,9 +47,10 @@ const StockScreen = ({ data }) => {
           <RNPickerSelect
             autosize={false}
             onValueChange={(value) => {
-              console.log(value);
+              setSide(value);
+              console.log(side);
             }}
-            // Will probably need to see what Alpaca supports
+            // Simplify to buy/sell on market/day
             items={[
               { label: "Buy", value: "Buy" },
               { label: "Sell", value: "Sell" },
@@ -44,11 +60,15 @@ const StockScreen = ({ data }) => {
         <TextInput
           style={styles.pickers}
           placeholder={"# of shares..."}
+          onChangeText={(value) => {
+            setShares(parseInt(value));
+            console.log(shares);
+          }}
         ></TextInput>
         <TouchableOpacity
           style={styles.submit}
-          onPress={() => {
-            console.log("submit");
+          onPress={async () => {
+            placeOrder()
           }}
         >
           <Text>Submit</Text>

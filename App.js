@@ -10,12 +10,12 @@ import DashboardScreen from "./screens/DashboardScreen";
 import StockScreen from "./screens/StockScreen";
 import ProfileScreen from "./screens/Profile";
 import SearchScreen from "./screens/Search";
-import { trading } from "./tradingApi/trading";
 
 const Stack = createNativeStackNavigator();
 
 const App = () => {
   const [user, setUser] = useState(null);
+
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
@@ -40,9 +40,9 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {user ? (
+        {!user ? (
           <>
-            <Stack.Screen options={{title: 'Dashboard', ...headerOptions}} name="Dashboard" component={DashboardScreen} />
+            {/* <Stack.Screen options={{title: 'Dashboard', ...headerOptions}} name="Dashboard" component={DashboardScreen} /> */}
             <Stack.Screen options={{title: 'Stock', ...headerOptions}} name="Stock">
               {() => <StockScreen data={capitalOne} />}
             </Stack.Screen>
