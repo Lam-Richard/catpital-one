@@ -54,39 +54,39 @@ const App = () => {
       <AuthStack.Screen
         name="Login"
         component={LoginScreen}
-        options={{ title: "Login" }}
+        options={{title: 'Login', ...headerOptions}}
       />
       <AuthStack.Screen
         name="Register"
         component={RegisterScreen}
-        options={{ title: "Register" }}
+        options={{title: 'Register', ...headerOptions}}
       />
     </AuthStack.Navigator>
   );
 
   const ProfileStackScreen = () => (
     <ProfileStack.Navigator>
-      <ProfileStack.Screen name="Profile" component={ProfileScreen} />
+      <ProfileStack.Screen options={{title: 'Profile', ...headerOptions}} name="Profile" component={ProfileScreen} />
     </ProfileStack.Navigator>
   );
 
   const DashboardStackScreen = () => (
     <DashboardStack.Navigator>
-      <DashboardStack.Screen name="Dashboard" component={DashboardScreen} />
+      <DashboardStack.Screen options={{title: 'Dashboard', ...headerOptions}} name="Dashboard" component={DashboardScreen} />
       <DashboardStack.Screen options={{title: 'Stock', ...headerOptions}} name="Stock">
           {() => <StockScreen data={capitalOne} />}
       </DashboardStack.Screen>
-      <DashboardStack.Screen name="Profile" component={ProfileScreen} />
+      <DashboardStack.Screen options={{title: 'Profile', ...headerOptions}} name="Profile" component={ProfileScreen} />
     </DashboardStack.Navigator>
   );
   
   const SearchStackScreen = () => (
     <SearchStack.Navigator>
-      <SearchStack.Screen name="Search" component={SearchScreen} />
+      <SearchStack.Screen options={{title: 'Search', ...headerOptions}} name="Search" component={SearchScreen} />
       <Stack.Screen options={{title: 'Stock', ...headerOptions}} name="Stock">
               {() => <StockScreen data={capitalOne} />}
       </Stack.Screen>
-      <SearchStack.Screen name="Profile" component={ProfileStackScreen} />
+      <SearchStack.Screen options={{title: 'Profile', ...headerOptions}} name="Profile" component={ProfileStackScreen} />
     </SearchStack.Navigator>
   );
   
