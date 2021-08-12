@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   TextInput,
   Button,
+  Image,
 } from "react-native";
 
 const DashboardScreen = ({ navigation }) => {
@@ -32,13 +33,16 @@ const DashboardScreen = ({ navigation }) => {
         }}
       >
         <Text>
-          {data.company} ({data.ticker}){"\n"} 
-          <Text style={{fontSize: 11, color: "gray"}}>{data.shares} shares</Text>
+          {data.company} ({data.ticker}){"\n"}
+          <Text style={{ fontSize: 11, color: "gray" }}>
+            {data.shares} shares
+          </Text>
         </Text>
         <View>
           <Text style={{ fontWeight: "bold" }}>{data.lastPrice}</Text>
           <Text style={{ backgroundColor: backgroundColor }}>
-            {" "}{data.upDown}
+            {" "}
+            {data.upDown}
             {data.lastChange}
           </Text>
         </View>
@@ -57,36 +61,40 @@ const DashboardScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+      <View style={styles.profileIconContainer}>
+        <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
+          <Image
+            style={styles.profileIcon}
+            source={require("../assets/profile-icon.png")}
+          />
+        </TouchableOpacity>
+      </View>
       <ScrollView style={styles.dashboard}>
-        <Text style={{ textAlign: "left", marginVertical: "4%", fontSize: 24, fontWeight: "bold" }}>
+        <Text style={{ textAlign: "center", marginVertical: "4%" }}>
           {" "}
           My Stocks
         </Text>
         {/* <ScrollView> */}
-          <Ticker data={capitalOne}></Ticker>
-          <Ticker data={capitalOne}></Ticker>
-          <Ticker data={capitalOne}></Ticker>
-          <Ticker data={capitalOne}></Ticker>
-          <Ticker data={capitalOne}></Ticker>
-          <Ticker data={capitalOne}></Ticker>
-          <Ticker data={capitalOne}></Ticker>
-          <Ticker data={capitalOne}></Ticker>
-          <Ticker data={capitalOne}></Ticker>
-          <Ticker data={capitalOne}></Ticker>
+        <Ticker data={capitalOne}></Ticker>
+        <Ticker data={capitalOne}></Ticker>
+        <Ticker data={capitalOne}></Ticker>
+        <Ticker data={capitalOne}></Ticker>
+        <Ticker data={capitalOne}></Ticker>
+        <Ticker data={capitalOne}></Ticker>
+        <Ticker data={capitalOne}></Ticker>
+        <Ticker data={capitalOne}></Ticker>
+        <Ticker data={capitalOne}></Ticker>
+        <Ticker data={capitalOne}></Ticker>
         {/* </ScrollView> */}
+        <Button
+          title="Go to Stock Screen"
+          onPress={() => navigation.navigate("Stock")}
+        />
+        <Button
+          title="Go to Search Screen"
+          onPress={() => navigation.navigate("Search")}
+        />
       </ScrollView>
-      <Button
-        title="Go to Stock Screen"
-        onPress={() => navigation.navigate("Stock")}
-      />
-      <Button
-        title="Go to Search Screen"
-        onPress={() => navigation.navigate("Search")}
-      />
-      <Button
-        title="Go to Profile Screen"
-        onPress={() => navigation.navigate("Profile")}
-      />
     </View>
   );
 };
@@ -94,19 +102,36 @@ const DashboardScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection: "column",
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "flex-start",
-    paddingTop: "2%",
     borderStyle: "solid",
     borderWidth: 1,
     borderColor: "black",
+    overflow: "scroll",
+  },
+  profileIconContainer: {
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    // borderWidth: 1,
+    // borderColor: "black",
+    // borderStyle: "solid",
+    width: "96%",
+    paddingTop: 10,
+  },
+  profileIcon: {
+    position: "relative",
+    right: 0,
+    resizeMode: "contain",
+    width: 40,
+    height: 40,
+    // borderWidth: 1,
+    // borderColor: "black",
   },
   dashboard: {
     width: "96%",
-    // borderStyle: 'solid',
-    // borderWidth: 1,
-    // borderColor: 'black',
+
     marginBottom: "5%",
   },
   end_day: {
@@ -132,7 +157,7 @@ const styles = StyleSheet.create({
     borderColor: "#c7c7c7",
     borderRadius: 10,
     marginBottom: 10,
-  }
+  },
 });
 
 export default DashboardScreen;
