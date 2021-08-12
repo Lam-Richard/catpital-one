@@ -3,21 +3,27 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity, TextInput } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
 
+const StockScreen = ({ data }) => {
 
-export const StockScreen = ({data}) => {
-    const [owned, setOwned] = useState(data != {})
+    // const [owned, setOwned] = useState(data !== {});
+
+    useEffect(() => {
+      console.log(data);
+    }, [data])
   
-    const Banner = ({data}) => {
-      return (
-        <View style={styles.banner}>
-          <Text style={{fontSize: 30}}>{data.company} ({data.ticker}) &nbsp;</Text>
-        </View>
-      )
-    }
+    // const Banner = ({data}) => {
+    //   return (
+    //     <View style={styles.banner}>
+    //       <Text style={{fontSize: 30}}>{data.company} ({data.ticker}) &nbsp;</Text>
+    //     </View>
+    //   )
+    // }
     
     return (
       <View style={styles.container}>
-        <Banner data={data}></Banner>
+        <View style={styles.banner}>
+          <Text style={{fontSize: 30}}>{data.company} ({data.ticker}) &nbsp;</Text>
+        </View>
         <View style={styles.graph}>
             <Text>A stock graph will probably go here</Text>
         </View>
@@ -43,7 +49,7 @@ export const StockScreen = ({data}) => {
           </TouchableOpacity>
         </View>
         <View style={{marginBottom: '5%'}}>
-          {owned ? 
+          {data !== {} ? 
           <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
             <View style={{marginRight: '10%'}}>
               <Text>Shares owned: {data.shares}</Text>
@@ -125,8 +131,6 @@ export const StockScreen = ({data}) => {
       borderColor: 'black',
       width: '30%'  
     },
-    
-  
   })
   
-  
+export default StockScreen;
