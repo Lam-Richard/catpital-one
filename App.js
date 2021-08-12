@@ -1,82 +1,60 @@
-import { StatusBar } from 'expo-status-bar';
-import * as React from 'react';
-import { StyleSheet, Button, Text, View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import React, { useState, useEffect } from "react";
+import { NavigationContainer, useLinkProps } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
+import { auth } from "./firebase/firebase";
+
+import RegisterScreen from "./screens/Register";
+import LoginScreen from "./screens/Login";
+import DashboardScreen from "./screens/DashboardScreen";
+import StockScreen from "./screens/StockScreen";
+import ProfileScreen from "./screens/Profile";
 
 const Stack = createNativeStackNavigator();
 
-const DashboardScreen = ({ navigation }) => {
-  return (
-    <View>
-      <Text>
-        Dashboard Screen
-      </Text>
-      <Button 
-        title="Go to Stock Screen"
-        onPress={() => navigation.navigate("StockScreen")}
-      />
-      <Button 
-        title="Go to Profile Screen"
-        onPress={() => navigation.navigate("ProfileScreen")}
-      />
-    </View>
-  )
-}
+const App = () => {
+  const [user, setUser] = useState(null);
 
-const StockScreen = ({ navigation }) => {
-  return (
-    <View>
-      <Text>
-        Stock Screen
-      </Text>
-      <Button 
-        title="Go to Dashboard Screen"
-        onPress={() => navigation.navigate("DashboardScreen")}
-      />
-      <Button 
-        title="Go to Profile Screen"
-        onPress={() => navigation.navigate("ProfileScreen")}
-      />
-    </View>
-  )
-}
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+      setUser(user);
+    });
+    return () => {
+      unsubscribe();
+    };
+  });
 
-const ProfileScreen = ({ navigation }) => {
-  return (
-    <View>
-      <Text>
-        Profile Screen
-      </Text>
-      <Button 
-        title="Go to Stock Screen"
-        onPress={() => navigation.navigate("StockScreen")}
-      />
-      <Button 
-        title="Go to Dashboard Screen"
-        onPress={() => navigation.navigate("DashboardScreen")}
-      />
-    </View>
-  )
-}
+  const capitalOne = {
+    company: "Capital One",
+    ticker: "COF",
+    lastPrice: 174.55,
+    lastChange: 3.91,
+    percentChange: 2.29,
+    upDown: "+",
+    shares: 100,
+    boughtPrice: 8.31,
+  };
 
-export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="DashboardScreen">
-        <Stack.Screen name="DashboardScreen" component={DashboardScreen} />
-        <Stack.Screen name="StockScreen" component={StockScreen} />
-        <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
+      <Stack.Navigator>
+        {user ? (
+          <>
+            <Stack.Screen name="DashboardScreen" component={DashboardScreen} />
+            <Stack.Screen name="StockScreen">
+              {() => <StockScreen data={capitalOne} />}
+            </Stack.Screen>
+            <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
+          </>
+        ) : (
+          <>
+            <Stack.Screen name="Register" component={RegisterScreen} />
+            <Stack.Screen name="Login" component={LoginScreen} />
+          </>
+        )}
       </Stack.Navigator>
     </NavigationContainer>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
