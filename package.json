@@ -10,6 +10,7 @@
   "dependencies": {
     "@alpacahq/alpaca-trade-api": "^2.4.0",
     "@react-native-picker/picker": "^1.16.5",
+    "@react-navigation/bottom-tabs": "^6.0.4",
     "@react-navigation/native": "^6.0.2",
     "@react-navigation/native-stack": "^6.0.5",
     "expo": "~42.0.1",
