@@ -61,14 +61,6 @@ const DashboardScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.profileIconContainer}>
-        <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
-          <Image
-            style={styles.profileIcon}
-            source={require("../assets/profile-icon.png")}
-          />
-        </TouchableOpacity>
-      </View>
       <ScrollView style={styles.dashboard}>
         <Text style={{ textAlign: "center", marginVertical: "4%" }}>
           {" "}
@@ -154,7 +146,7 @@ const styles = StyleSheet.create({
     marginHorizontal: "1%",
     borderStyle: "solid",
     borderWidth: 1,
-    borderColor: "#c7c7c7",
+    borderColor: "#083358",
     borderRadius: 10,
     marginBottom: 10,
   },

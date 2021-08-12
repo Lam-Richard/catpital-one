@@ -1,12 +1,30 @@
-import React from "react";
-import { Text, View, Button, StyleSheet, Image } from "react-native";
-import TextTicker from "react-native-text-ticker";
+import React, { useEffect, useState } from "react";
+import { Text, View, StyleSheet, Image, Dimensions } from "react-native";
 import StockMarquee from "../components/StockMarquee";
+import { auth } from "../firebase/firebase";
 
-const ProfileScreen = ({ navigation }) => {
+const ProfileScreen = () => {
+  const [user, setUser] = useState({
+    id: "NaN",
+    username: "NaN",
+    email: "NaN",
+    createdAt: "NaN",
+  });
+
+  useEffect(() => {
+    const { uid, displayName, email, metadata } = auth.currentUser;
+    setUser({
+      id: uid,
+      username: displayName,
+      email: email,
+      createdAt: metadata.creationTime,
+    });
+  }, []);
+
   const profile = {
     name: "Sprinkles",
     money: 69.69,
+    change: -6.9,
     day: 4,
     occupation: "Intern",
   };
@@ -56,28 +74,43 @@ const ProfileScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.topContainer}>
-        <Text style={styles.headerTitle}>${profile.money}</Text>
-        <Text style={styles.headerTitle}>Day {profile.day}</Text>
+      <View style={[styles.topContainer, styles.subContainer]}>
+        <View style={styles.topContent}>
+          <Text style={{ fontSize: 18 }}>Value</Text>
+          <Text
+            style={[
+              styles.headerTitle,
+              profile.change >= 0 ? { color: "green" } : { color: "red" },
+            ]}
+          >
+            ${profile.money.toFixed(2)} ({profile.change.toFixed(2)}%)
+          </Text>
+        </View>
+        <View style={styles.topContent}>
+          <Text style={{ fontSize: 18 }}>Day</Text>
+          <Text style={styles.headerTitle}>{profile.day}</Text>
+        </View>
       </View>
-      <View style={styles.midContainer}>
+      <View style={{ marginVertical: 10 }}>
         <StockMarquee data={data} />
-        <Text style={styles.headerTitle}>Hello {profile.name}!</Text>
-        <Image
-          style={styles.catImage}
-          source={require("../assets/Avatar1.png")}
-        />
-        <Text style={styles.headerTitle}>{profile.occupation}</Text>
       </View>
-      <View style={styles.bottomContainer}>
-        <Button
-          title="Go to Stock Screen"
-          onPress={() => navigation.navigate("StockScreen")}
-        />
-        <Button
-          title="Go to Dashboard Screen"
-          onPress={() => navigation.navigate("DashboardScreen")}
-        />
+      <View style={[styles.midContainer, styles.subContainer]}>
+        <View style={styles.midContent}>
+          <Text style={styles.headerTitle}>Hello {user.username}!</Text>
+          {/* <Text style={styles.headerTitle}>( {profile.occupation} )</Text> */}
+        </View>
+        <View style={[styles.midContent, styles.catImageContainer]}>
+          <Image
+            style={styles.catImage}
+            source={require("../assets/Avatar1.png")}
+          />
+        </View>
+        <View style={styles.midContent}>
+          <Text style={styles.info}>ID: {user.id}</Text>
+          <Text style={styles.info}>Username: {user.username}</Text>
+          <Text style={styles.info}>Email: {user.email}</Text>
+          <Text style={styles.info}>Created Date: {user.createdAt}</Text>
+        </View>
       </View>
     </View>
   );
@@ -87,41 +120,66 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
-    // backgroundColor: "#0F4471",
+  },
+  subContainer: {
+    marginVertical: 10,
+    // borderStyle: "solid",
+    // borderWidth: 1,
+    // borderColor: "black",
   },
   topContainer: {
-    // backgroundColor: "blue",
     flexDirection: "row",
     justifyContent: "space-between",
-    padding: 10,
+  },
+  topContent: {
     flex: 1,
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
   },
   midContainer: {
-    // backgroundColor: "#FC3C3C",
-    flex: 4,
-    justifyContent: "space-between",
+    justifyContent: "space-evenly",
     alignItems: "center",
-    // padding: 50,
+    height: "70%",
   },
-  bottomContainer: {
-    flex: 1,
-    // backgroundColor: "green",
-    // alignItems: "center",
+  midContent: {
+    alignItems: "center",
+    // borderStyle: "solid",
+    // borderWidth: 1,
+    // borderColor: "black",
+  },
+  profileInfo: {
+    flexDirection: "column",
   },
   headerTitle: {
     fontSize: 20,
-    marginVertical: 40,
-    // color: "#F6F6F6",
+    // marginVertical: 40,
+    color: "#000",
+    fontWeight: "bold",
+  },
+  info: {
+    fontSize: 15,
+  },
+  catImageContainer: {
+    borderRadius:
+      Math.round(
+        Dimensions.get("window").width + Dimensions.get("window").height
+      ) / 2,
+    width: Dimensions.get("window").width * 0.9,
+    height: Dimensions.get("window").width * 0.5,
+    borderColor: "#FC3C3C",
+    backgroundColor: "#0F4471",
+    borderWidth: 5,
+    justifyContent: "center",
+    alignItems: "center",
   },
   catImage: {
-    flex: 1,
-    aspectRatio: 0.5,
+    width: "90%",
+    height: "90%",
     resizeMode: "contain",
+    // borderWidth: 1,
+    // borderColor: "black",
   },
-  // stockList: {
-  //   backgroundColor: "#4F5E69",
-  //   flex: 1,
-  // },
 });
 
 export default ProfileScreen;

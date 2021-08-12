@@ -1,3 +1,7 @@
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity, TextInput, AsyncStorage } from 'react-native';
+import OnboardingScreen from './screens/OnboardingScreen';
+
 import React, { useState, useEffect } from "react";
 import { NavigationContainer, useLinkProps } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -100,9 +104,12 @@ const App = () => {
       tabBarIcon: ({ focused, color, size }) => {
         let iconName;
         if (route.name === 'DashboardStack') {
-          iconName = 'wallet';
+          iconName = 'wallet-outline';
         } else if (route.name === 'SearchStack') {
-          iconName = 'search';
+          iconName = 'search-outline';
+        } else if (route.name === 'ProfileStack') {
+          iconName = 'person-sharp';
+          size += 5
         }
         return <Ionicons name={iconName} size={size} color={color} />;
       },
@@ -111,6 +118,7 @@ const App = () => {
     })}>
       <Tabs.Screen name="DashboardStack" component={DashboardStackScreen} options={{tabBarLabel: "Dashboard"}} />
       <Tabs.Screen name="SearchStack" component={SearchStackScreen} options={{tabBarLabel: "Search"}}/>
+      <Tabs.Screen name="ProfileStack" component={ProfileStackScreen} options={{tabBarLabel: "Profile"}}/>
     </Tabs.Navigator>
   );
 
@@ -143,6 +151,7 @@ const App = () => {
       {/* <Stack.Navigator>
         {user ? (
           <>
+          
             <Stack.Screen options={{title: 'Dashboard', ...headerOptions}} name="Dashboard" component={DashboardScreen} />
             <Stack.Screen options={{title: 'Stock', ...headerOptions}} name="Stock">
               {() => <StockScreen data={capitalOne} />}
@@ -152,6 +161,7 @@ const App = () => {
           </>
         ) : (
           <>
+            <Stack.Screen name="Welcome" component={OnboardingScreen}/>
             <Stack.Screen options={{title: 'Register', ...headerOptions}} name="Register" component={RegisterScreen} />
             <Stack.Screen options={{title: 'Login', ...headerOptions}} name="Login" component={LoginScreen} />
           </>
@@ -176,6 +186,15 @@ const customTextProps = {
     fontFamily: 'Avenir'
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
 
 setCustomText(customTextProps);
 
