@@ -1,13 +1,74 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import * as React from 'react';
+import { StyleSheet, Button, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+const Stack = createNativeStackNavigator();
+
+const DashboardScreen = ({ navigation }) => {
+  return (
+    <View>
+      <Text>
+        Dashboard Screen
+      </Text>
+      <Button 
+        title="Go to Stock Screen"
+        onPress={() => navigation.navigate("StockScreen")}
+      />
+      <Button 
+        title="Go to Profile Screen"
+        onPress={() => navigation.navigate("ProfileScreen")}
+      />
+    </View>
+  )
+}
+
+const StockScreen = ({ navigation }) => {
+  return (
+    <View>
+      <Text>
+        Stock Screen
+      </Text>
+      <Button 
+        title="Go to Dashboard Screen"
+        onPress={() => navigation.navigate("DashboardScreen")}
+      />
+      <Button 
+        title="Go to Profile Screen"
+        onPress={() => navigation.navigate("ProfileScreen")}
+      />
+    </View>
+  )
+}
+
+const ProfileScreen = ({ navigation }) => {
+  return (
+    <View>
+      <Text>
+        Profile Screen
+      </Text>
+      <Button 
+        title="Go to Stock Screen"
+        onPress={() => navigation.navigate("StockScreen")}
+      />
+      <Button 
+        title="Go to Dashboard Screen"
+        onPress={() => navigation.navigate("DashboardScreen")}
+      />
+    </View>
+  )
+}
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="DashboardScreen">
+        <Stack.Screen name="DashboardScreen" component={DashboardScreen} />
+        <Stack.Screen name="StockScreen" component={StockScreen} />
+        <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
