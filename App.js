@@ -10,6 +10,7 @@ import DashboardScreen from "./screens/DashboardScreen";
 import StockScreen from "./screens/StockScreen";
 import ProfileScreen from "./screens/Profile";
 import SearchScreen from "./screens/Search";
+import { trading } from "./tradingApi/trading";
 
 const Stack = createNativeStackNavigator();
 

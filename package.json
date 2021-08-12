@@ -8,6 +8,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@alpacahq/alpaca-trade-api": "^2.4.0",
     "@react-native-picker/picker": "^1.16.5",
     "@react-navigation/native": "^6.0.2",
     "@react-navigation/native-stack": "^6.0.5",
@@ -22,6 +23,10 @@
     "react-native-picker-select": "^8.0.4",
     "react-native-safe-area-context": "3.2.0",
     "react-native-screens": "~3.4.0",
+<<<<<<< HEAD
+=======
+    "react-native-text-ticker": "^1.13.0",
+>>>>>>> 128e72388689221ebc8940d97704eda63a3a8cf5
     "react-native-web": "~0.13.12"
   },
   "devDependencies": {
