@@ -20,7 +20,7 @@ const DashboardScreen = ({ navigation }) => {
     percentChange: 2.29,
     upDown: "+",
     shares: 100,
-    boughtPrice: 8.31,
+    boughtPrice: 8.32,
   };
 
   const Ticker = ({ data }) => {
@@ -29,7 +29,9 @@ const DashboardScreen = ({ navigation }) => {
       <TouchableOpacity
         style={styles.ticker}
         onPress={() => {
-          console.log("Pressed");
+          navigation.navigate('Stock', {
+            data: capitalOne,
+          });
         }}
       >
         <Text>

@@ -12,9 +12,8 @@ import {
 } from "react-native";
 import RNPickerSelect from "react-native-picker-select";
 
-const StockScreen = ({ data }) => {
-  const navigation = useNavigation();
-
+const StockScreen = ({ route, navigation }) => {
+  const { data } = route.params;
   return (
     <View style={styles.container}>
       <View style={styles.banner}>
