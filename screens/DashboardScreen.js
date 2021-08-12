@@ -81,18 +81,6 @@ const DashboardScreen = ({ navigation }) => {
             <Ticker data={capitalOne}></Ticker>
           {/* </ScrollView> */}
         </ScrollView>
-        <Button
-          title="Go to Stock Screen"
-          onPress={() => navigation.navigate("Stock")}
-        />
-        <Button
-          title="Go to Search Screen"
-          onPress={() => navigation.navigate("Search")}
-        />
-        <Button
-          title="Go to Profile Screen"
-          onPress={() => navigation.navigate("Profile")}
-        />
       </LinearGradient>
     </View>
   );
@@ -104,7 +92,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "flex-start",
-    paddingTop: "2%",
+    // paddingTop: "2%",
     borderStyle: "solid",
     borderWidth: 1,
     borderColor: "black",
@@ -114,7 +102,7 @@ const styles = StyleSheet.create({
     // borderStyle: 'solid',
     // borderWidth: 1,
     // borderColor: 'black',
-    marginBottom: "5%",
+    // marginBottom: "5%",
   },
   end_day: {
     height: "10%",
@@ -129,7 +117,7 @@ const styles = StyleSheet.create({
   linearGradient: {
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 5,
+    // borderRadius: 5,
     height: "100%",
     width: "100%",
   },
