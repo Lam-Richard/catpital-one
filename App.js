@@ -73,9 +73,7 @@ const App = () => {
   const DashboardStackScreen = () => (
     <DashboardStack.Navigator>
       <DashboardStack.Screen options={{title: 'Dashboard', ...headerOptions}} name="Dashboard" component={DashboardScreen} />
-      <DashboardStack.Screen options={{title: 'Stock', ...headerOptions}} name="Stock">
-          {() => <StockScreen data={capitalOne} />}
-      </DashboardStack.Screen>
+      <DashboardStack.Screen options={{title: 'Stock', ...headerOptions}} name="Stock" component={StockScreen}/>
       <DashboardStack.Screen options={{title: 'Profile', ...headerOptions}} name="Profile" component={ProfileScreen} />
     </DashboardStack.Navigator>
   );
@@ -83,9 +81,7 @@ const App = () => {
   const SearchStackScreen = () => (
     <SearchStack.Navigator>
       <SearchStack.Screen options={{title: 'Search', ...headerOptions}} name="Search" component={SearchScreen} />
-      <Stack.Screen options={{title: 'Stock', ...headerOptions}} name="Stock">
-              {() => <StockScreen data={capitalOne} />}
-      </Stack.Screen>
+      <SearchStack.Screen options={{title: 'Stock', ...headerOptions}} name="Stock" component={StockScreen}/>
       <SearchStack.Screen options={{title: 'Profile', ...headerOptions}} name="Profile" component={ProfileStackScreen} />
     </SearchStack.Navigator>
   );
@@ -154,7 +150,7 @@ const App = () => {
           
             <Stack.Screen options={{title: 'Dashboard', ...headerOptions}} name="Dashboard" component={DashboardScreen} />
             <Stack.Screen options={{title: 'Stock', ...headerOptions}} name="Stock">
-              {() => <StockScreen data={capitalOne} />}
+              {() => <StockScreen  />}
             </Stack.Screen>
             <Stack.Screen options={{title: 'Profile', ...headerOptions}} name="Profile" component={ProfileScreen} />
             <Stack.Screen options={{title: 'Search', ...headerOptions}} name="Search" component={SearchScreen} />
