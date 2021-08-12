@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Text, View, StyleSheet, Image } from "react-native";
+import { Text, View, StyleSheet, Image, Dimensions } from "react-native";
 import StockMarquee from "../components/StockMarquee";
 import { auth } from "../firebase/firebase";
 
@@ -161,18 +161,21 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   catImageContainer: {
-    width: 230,
-    height: 230,
-    // overflow: "hidden",
-    borderRadius: 180,
-    borderStyle: "solid",
-    // borderWidth: 1,
-    // borderColor: "black",
-    // justifyContent: "center",
+    borderRadius:
+      Math.round(
+        Dimensions.get("window").width + Dimensions.get("window").height
+      ) / 2,
+    width: Dimensions.get("window").width * 0.9,
+    height: Dimensions.get("window").width * 0.5,
+    borderColor: "#FC3C3C",
+    backgroundColor: "#0F4471",
+    borderWidth: 5,
+    justifyContent: "center",
+    alignItems: "center",
   },
   catImage: {
-    width: "100%",
-    height: "100%",
+    width: "90%",
+    height: "90%",
     resizeMode: "contain",
     // borderWidth: 1,
     // borderColor: "black",
