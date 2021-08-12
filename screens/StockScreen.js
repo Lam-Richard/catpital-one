@@ -91,11 +91,11 @@ const StockScreen = ({ data }) => {
       </View>
       <Button
         title="Go to Dashboard Screen"
-        onPress={() => navigation.navigate("DashboardScreen")}
+        onPress={() => navigation.navigate("Dashboard")}
       />
       <Button
         title="Go to Profile Screen"
-        onPress={() => navigation.navigate("ProfileScreen")}
+        onPress={() => navigation.navigate("Profile")}
       />
     </View>
   );
