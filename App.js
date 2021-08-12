@@ -7,34 +7,45 @@ import { auth } from './firebase/firebase';
 import RegisterScreen from './screens/Register';
 import LoginScreen from './screens/Login';
 import HomeScreen from './screens/Home';
+import { DashboardScreen } from './screens/DashboardScreen';
+import StockScreen from './screens/StockScreen';
 
 const Stack = createNativeStackNavigator();
 
 const App = () => {
-  const [ authenticated, setAuthenticated ] = useState(false);
+  const [ user, setUser ] = useState(null);
 
   useEffect(() => {
-    try {
-      const unsubscribe = auth.onAuthStateChanged(async user => {
-        if (user) setAuthenticated(true);
-        else setAuthenticated(false);
-      });
-      return () => {
-        unsubscribe();
-      }
-    } catch (err) {
-      console.error(err);
+    const unsubscribe = auth.onAuthStateChanged(async user => {
+      setUser(user);
+    });
+    return () => {
+      unsubscribe();
     }
-  }, []);
+  });
+
+  const capitalOne = {
+    company: 'Capital One',
+    ticker: 'COF',
+    lastPrice: 174.55,
+    lastChange: 3.91,
+    percentChange: 2.29,
+    upDown: '+',
+    shares: 100,
+    boughtPrice: 8.31,
+  };
 
   return (
     <NavigationContainer>
       <Stack.Navigator>
         {
-          authenticated
+          user
           ? (
             <>
-              <Stack.Screen name="Home" component={ HomeScreen } />
+              {/* <Stack.Screen name="Home" component={ HomeScreen } /> */}
+              <Stack.Screen name="Stock">
+                { () => <StockScreen data={capitalOne}/>}
+              </Stack.Screen>
             </>
           )
           : (
