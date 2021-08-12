@@ -1,4 +1,5 @@
 import { StatusBar } from "expo-status-bar";
+import { LinearGradient } from "expo-linear-gradient";
 import React from "react";
 import {
   StyleSheet,
@@ -8,7 +9,6 @@ import {
   TouchableOpacity,
   TextInput,
   Button,
-  Image,
 } from "react-native";
 
 const DashboardScreen = ({ navigation }) => {
@@ -61,28 +61,42 @@ const DashboardScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={{ fontSize: 20, fontWeight: "bold", color: "#0F4471" }}>
-          My Stocks
-        </Text>
-      </View>
-      <ScrollView style={styles.dashboard}>
-        {/* <Text style={{ textAlign: "center", marginVertical: "4%" }}>
-          {" "}
-          My Stocks
-        </Text> */}
-        {/* <ScrollView> */}
-        <Ticker data={capitalOne}></Ticker>
-        <Ticker data={capitalOne}></Ticker>
-        <Ticker data={capitalOne}></Ticker>
-        <Ticker data={capitalOne}></Ticker>
-        <Ticker data={capitalOne}></Ticker>
-        <Ticker data={capitalOne}></Ticker>
-        <Ticker data={capitalOne}></Ticker>
-        <Ticker data={capitalOne}></Ticker>
-        <Ticker data={capitalOne}></Ticker>
-        <Ticker data={capitalOne}></Ticker>
-        {/* </ScrollView> */}
+      <LinearGradient
+        colors={[
+          "#f6f6f6",
+          "#eadaf4",
+          "#efb9e4",
+          "#f994c3",
+          "#ff6c93",
+          "#f45888",
+          "#e8427d",
+          "#dc2672",
+          "#b0378b",
+          "#7a4493",
+          "#434889",
+          "#0f4471",
+        ]}
+        style={styles.linearGradient}
+      >
+        <View style={styles.header}>
+          <Text style={{ fontSize: 20, fontWeight: "bold", color: "#0F4471" }}>
+            My Stocks
+          </Text>
+        </View>
+        <ScrollView style={styles.dashboard}>
+          {/* <ScrollView> */}
+          <Ticker data={capitalOne}></Ticker>
+          <Ticker data={capitalOne}></Ticker>
+          <Ticker data={capitalOne}></Ticker>
+          <Ticker data={capitalOne}></Ticker>
+          <Ticker data={capitalOne}></Ticker>
+          <Ticker data={capitalOne}></Ticker>
+          <Ticker data={capitalOne}></Ticker>
+          <Ticker data={capitalOne}></Ticker>
+          <Ticker data={capitalOne}></Ticker>
+          <Ticker data={capitalOne}></Ticker>
+          {/* </ScrollView> */}
+        </ScrollView>
         <Button
           title="Go to Stock Screen"
           onPress={() => navigation.navigate("Stock")}
@@ -91,7 +105,11 @@ const DashboardScreen = ({ navigation }) => {
           title="Go to Search Screen"
           onPress={() => navigation.navigate("Search")}
         />
-      </ScrollView>
+        <Button
+          title="Go to Profile Screen"
+          onPress={() => navigation.navigate("Profile")}
+        />
+      </LinearGradient>
     </View>
   );
 };
@@ -99,7 +117,6 @@ const DashboardScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: "column",
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "flex-start",
@@ -128,7 +145,9 @@ const styles = StyleSheet.create({
   },
   dashboard: {
     width: "96%",
-
+    // borderStyle: 'solid',
+    // borderWidth: 1,
+    // borderColor: 'black',
     marginBottom: "5%",
   },
   end_day: {
@@ -141,6 +160,13 @@ const styles = StyleSheet.create({
     borderColor: "black",
     marginBottom: "5%",
   },
+  linearGradient: {
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 5,
+    height: "100%",
+    width: "100%",
+  },
   ticker: {
     width: "98%",
     flexDirection: "row",
@@ -151,9 +177,10 @@ const styles = StyleSheet.create({
     marginHorizontal: "1%",
     borderStyle: "solid",
     borderWidth: 1,
-    borderColor: "#083358",
+    borderColor: "#c7c7c7",
     borderRadius: 10,
     marginBottom: 10,
+    backgroundColor: "white",
   },
 });
 
