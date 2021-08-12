@@ -7,11 +7,11 @@ const ProfileScreen = ({ navigation }) => {
       <Text>Profile Screen</Text>
       <Button
         title="Go to Stock Screen"
-        onPress={() => navigation.navigate("StockScreen")}
+        onPress={() => navigation.navigate("Stock")}
       />
       <Button
         title="Go to Dashboard Screen"
-        onPress={() => navigation.navigate("DashboardScreen")}
+        onPress={() => navigation.navigate("Dashboard")}
       />
     </View>
   );

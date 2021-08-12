@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { NavigationContainer, useLinkProps } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-
+import { setCustomText } from 'react-native-global-props'
 import { auth } from "./firebase/firebase";
 
 import RegisterScreen from "./screens/Register";
@@ -9,6 +9,7 @@ import LoginScreen from "./screens/Login";
 import DashboardScreen from "./screens/DashboardScreen";
 import StockScreen from "./screens/StockScreen";
 import ProfileScreen from "./screens/Profile";
+import SearchScreen from "./screens/Search";
 
 const Stack = createNativeStackNavigator();
 
@@ -40,21 +41,41 @@ const App = () => {
       <Stack.Navigator>
         {user ? (
           <>
-            <Stack.Screen name="DashboardScreen" component={DashboardScreen} />
-            <Stack.Screen name="StockScreen">
+            <Stack.Screen options={{title: 'Dashboard', ...headerOptions}} name="Dashboard" component={DashboardScreen} />
+            <Stack.Screen options={{title: 'Stock', ...headerOptions}} name="Stock">
               {() => <StockScreen data={capitalOne} />}
             </Stack.Screen>
-            <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
+            <Stack.Screen options={{title: 'Profile', ...headerOptions}} name="Profile" component={ProfileScreen} />
+            <Stack.Screen options={{title: 'Search', ...headerOptions}} name="Search" component={SearchScreen} />
           </>
         ) : (
           <>
-            <Stack.Screen name="Register" component={RegisterScreen} />
-            <Stack.Screen name="Login" component={LoginScreen} />
+            <Stack.Screen options={{title: 'Register', ...headerOptions}} name="Register" component={RegisterScreen} />
+            <Stack.Screen options={{title: 'Login', ...headerOptions}} name="Login" component={LoginScreen} />
           </>
         )}
       </Stack.Navigator>
     </NavigationContainer>
   );
 };
+
+const headerOptions = {
+  headerStyle: {
+    backgroundColor: '#0F4471',
+  },
+  headerTintColor: '#fff',
+  headerTitleStyle: {
+    fontWeight: 'bold',
+  },
+}
+
+const customTextProps = {
+  style: {
+    fontFamily: 'Avenir'
+  }
+}
+
+setCustomText(customTextProps);
+
 
 export default App;
