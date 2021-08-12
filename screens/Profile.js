@@ -1,9 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { Text, View, StyleSheet, Image, Dimensions } from "react-native";
+import { Text, View, StyleSheet, Image, Dimensions, Button, TouchableOpacity } from "react-native";
 import StockMarquee from "../components/StockMarquee";
 import { auth } from "../firebase/firebase";
 
-const ProfileScreen = () => {
+const ProfileScreen = ({ navigation }) => {
+  
+  const signOutUser = async () => {
+    try {
+        await auth.signOut();
+        navigation.navigate('Auth');
+    } catch (e) {
+        console.log(e);
+    }
+  }
+
   const [user, setUser] = useState({
     id: "NaN",
     username: "NaN",
@@ -76,7 +86,7 @@ const ProfileScreen = () => {
     <View style={styles.container}>
       <View style={[styles.topContainer, styles.subContainer]}>
         <View style={styles.topContent}>
-          <Text style={{ fontSize: 18 }}>Value</Text>
+          <Text style={{ fontSize: 18, color: "#083358" }}>Value</Text>
           <Text
             style={[
               styles.headerTitle,
@@ -86,10 +96,13 @@ const ProfileScreen = () => {
             ${profile.money.toFixed(2)} ({profile.change.toFixed(2)}%)
           </Text>
         </View>
-        {/* <View style={styles.topContent}>
-          <Text style={{ fontSize: 18 }}>Day</Text>
-          <Text style={styles.headerTitle}>{profile.day}</Text>
-        </View> */}
+
+        <View style={styles.topContent}>
+          <TouchableOpacity title="Logout" onPress={() => signOutUser()} style={{alignItems: "center"}}>
+            <Text style={{fontSize: 18, color: "#083358", marginBottom: 5}}>Logout</Text>
+            <Image source={require("../assets/exit.png")} style={{resizeMode: "contain", width: 22, height: 22}}></Image>
+          </TouchableOpacity>
+        </View>
       </View>
       <View style={{ marginVertical: 10 }}>
         <StockMarquee data={data} />
@@ -129,7 +142,7 @@ const styles = StyleSheet.create({
   },
   topContainer: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "space-evenly",
   },
   topContent: {
     flex: 1,
@@ -154,7 +167,7 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 20,
     // marginVertical: 40,
-    color: "#000",
+    color: "#083358",
     fontWeight: "bold",
   },
   info: {
