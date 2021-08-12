@@ -8,7 +8,7 @@ const ProfileScreen = ({ navigation }) => {
     name: "Sprinkles",
     money: 69.69,
     day: 4,
-    occupation: "Intern at Cat-pital One",
+    occupation: "Intern",
   };
 
   const data = [
