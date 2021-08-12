@@ -1,15 +1,9 @@
 import React from "react";
-import { 
-  Text, 
-  View, 
-  Button,
-  StyleSheet,
-  Image,
- } from "react-native";
-import TextTicker from 'react-native-text-ticker'
+import { Text, View, Button, StyleSheet, Image } from "react-native";
+import TextTicker from "react-native-text-ticker";
+import StockMarquee from "../components/StockMarquee";
 
 const ProfileScreen = ({ navigation }) => {
-
   const profile = {
     name: "Sprinkles",
     money: 69.69,
@@ -17,13 +11,48 @@ const ProfileScreen = ({ navigation }) => {
     occupation: "Intern",
   };
 
-
-  const scrollingTicker = {
-    tickers: ["COF", "TEST", "TEST"],
-    prices: ["$174.55", "$1.00", "$69.69"],
-    percentChange: ["+2.29", "-69.0", "$69.69"],
-    isPositive: [true, false, true],
-  }
+  const data = [
+    {
+      title: "COF",
+      price: 174.55,
+      change: 2.29,
+    },
+    {
+      title: "COF",
+      price: 174.55,
+      change: -2.29,
+    },
+    {
+      title: "COF",
+      price: 174.55,
+      change: -2.29,
+    },
+    {
+      title: "COF",
+      price: 174.55,
+      change: 2.29,
+    },
+    {
+      title: "COF",
+      price: 174.55,
+      change: -2.29,
+    },
+    {
+      title: "COF",
+      price: 174.55,
+      change: -2.29,
+    },
+    {
+      title: "COF",
+      price: 174.55,
+      change: 2.29,
+    },
+    {
+      title: "COF",
+      price: 174.55,
+      change: -2.29,
+    },
+  ];
 
   return (
     <View style={styles.container}>
@@ -32,30 +61,13 @@ const ProfileScreen = ({ navigation }) => {
         <Text style={styles.headerTitle}>Day {profile.day}</Text>
       </View>
       <View style={styles.midContainer}>
-        <TextTicker
-            style={{ fontSize: 24 }}
-            scrollSpeed={30}
-            animationType={"scroll"}
-            loop
-            bounce
-            repeatSpacer={50}
-            marqueeDelay={500}
-          >
-            <View style={styles.tickerView}>
-              { scrollingTicker.tickers.map((item, key)=>(
-                <Text key={key} style={scrollingTicker.isPositive[key] ? styles.positiveTicker : styles.negativeTicker}> 
-                  {scrollingTicker.tickers[key]}   {scrollingTicker.prices[key]}   {scrollingTicker.percentChange[key]}
-                </Text>)
-              )}
-            </View>
-          
-        </TextTicker>
+        <StockMarquee data={data} />
         <Text style={styles.headerTitle}>Hello {profile.name}!</Text>
-          <Image
-            style={styles.catImage}
-            source={require('../assets/Avatar1.png')}
-          />
-        <Text style={styles.headerTitle}>{profile.occupation} at Cat-pital One</Text>
+        <Image
+          style={styles.catImage}
+          source={require("../assets/Avatar1.png")}
+        />
+        <Text style={styles.headerTitle}>{profile.occupation}</Text>
       </View>
       <View style={styles.bottomContainer}>
         <Button
@@ -70,7 +82,6 @@ const ProfileScreen = ({ navigation }) => {
     </View>
   );
 };
-
 
 const styles = StyleSheet.create({
   container: {
@@ -93,33 +104,24 @@ const styles = StyleSheet.create({
     // padding: 50,
   },
   bottomContainer: {
-    flex: 1, 
+    flex: 1,
     // backgroundColor: "green",
     // alignItems: "center",
   },
   headerTitle: {
     fontSize: 20,
-    marginVertical: 40
+    marginVertical: 40,
     // color: "#F6F6F6",
   },
   catImage: {
     flex: 1,
     aspectRatio: 0.5,
-    resizeMode: 'contain',
+    resizeMode: "contain",
   },
-  positiveTicker: {
-    color: "green",
-    fontSize: 24,
-    marginHorizontal: 10,
-  },
-  negativeTicker: {
-    color: "red",
-    fontSize: 24,
-    marginHorizontal: 10,
-  },
-  tickerView: {
-    flexDirection: "row",
-  }
+  // stockList: {
+  //   backgroundColor: "#4F5E69",
+  //   flex: 1,
+  // },
 });
 
 export default ProfileScreen;
