@@ -33,11 +33,15 @@ const DashboardScreen = ({ navigation }) => {
         }}
       >
         <Text>
-          {data.company} ({data.ticker}):
+          {data.company} ({data.ticker}){"\n"}
+          <Text style={{ fontSize: 11, color: "gray" }}>
+            {data.shares} shares
+          </Text>
         </Text>
         <View>
           <Text style={{ fontWeight: "bold" }}>{data.lastPrice}</Text>
           <Text style={{ backgroundColor: backgroundColor }}>
+            {" "}
             {data.upDown}
             {data.lastChange}
           </Text>
@@ -57,41 +61,40 @@ const DashboardScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        style={styles.profileIconContainer}
-        onPress={() => navigation.navigate("ProfileScreen")}
-      >
-        <Image
-          style={styles.profileIcon}
-          source={require("../assets/profile-icon.png")}
-          onPress={() => navigation.navigate("ProfileScreen")}
-        />
-      </TouchableOpacity>
-      <View style={styles.dashboard}>
+      <View style={styles.profileIconContainer}>
+        <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
+          <Image
+            style={styles.profileIcon}
+            source={require("../assets/profile-icon.png")}
+          />
+        </TouchableOpacity>
+      </View>
+      <ScrollView style={styles.dashboard}>
         <Text style={{ textAlign: "center", marginVertical: "4%" }}>
           {" "}
-          My Stuff
+          My Stocks
         </Text>
-        <ScrollView>
-          <Ticker data={capitalOne}></Ticker>
-          <Ticker data={capitalOne}></Ticker>
-          <Ticker data={capitalOne}></Ticker>
-          <Ticker data={capitalOne}></Ticker>
-          <Ticker data={capitalOne}></Ticker>
-          <Ticker data={capitalOne}></Ticker>
-          <Ticker data={capitalOne}></Ticker>
-          <Ticker data={capitalOne}></Ticker>
-          <Ticker data={capitalOne}></Ticker>
-          <Ticker data={capitalOne}></Ticker>
-        </ScrollView>
-      </View>
-      <View style={styles.order}>
-        <SearchBar />
-      </View>
-      <Button
-        title="Go to Stock Screen"
-        onPress={() => navigation.navigate("StockScreen")}
-      />
+        {/* <ScrollView> */}
+        <Ticker data={capitalOne}></Ticker>
+        <Ticker data={capitalOne}></Ticker>
+        <Ticker data={capitalOne}></Ticker>
+        <Ticker data={capitalOne}></Ticker>
+        <Ticker data={capitalOne}></Ticker>
+        <Ticker data={capitalOne}></Ticker>
+        <Ticker data={capitalOne}></Ticker>
+        <Ticker data={capitalOne}></Ticker>
+        <Ticker data={capitalOne}></Ticker>
+        <Ticker data={capitalOne}></Ticker>
+        {/* </ScrollView> */}
+        <Button
+          title="Go to Stock Screen"
+          onPress={() => navigation.navigate("Stock")}
+        />
+        <Button
+          title="Go to Search Screen"
+          onPress={() => navigation.navigate("Search")}
+        />
+      </ScrollView>
     </View>
   );
 };
@@ -127,18 +130,8 @@ const styles = StyleSheet.create({
     // borderColor: "black",
   },
   dashboard: {
-    height: "40%",
     width: "96%",
 
-    marginBottom: "5%",
-  },
-  order: {
-    height: "40%",
-    width: "96%",
-    alignItems: "center",
-    borderStyle: "solid",
-    borderWidth: 1,
-    borderColor: "black",
     marginBottom: "5%",
   },
   end_day: {
@@ -156,23 +149,14 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    padding: "1%",
+    paddingHorizontal: "4%",
+    paddingVertical: "3.5%",
     marginHorizontal: "1%",
     borderStyle: "solid",
     borderWidth: 1,
-    borderColor: "black",
+    borderColor: "#c7c7c7",
     borderRadius: 10,
-    marginBottom: 5,
-  },
-  search: {
-    width: "95%",
-    paddingHorizontal: "2%",
-    marginTop: "5%",
-    height: "15%",
-    borderStyle: "solid",
-    borderColor: "black",
-    borderWidth: 1,
-    borderRadius: 20,
+    marginBottom: 10,
   },
 });
 
