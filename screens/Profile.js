@@ -86,10 +86,10 @@ const ProfileScreen = () => {
             ${profile.money.toFixed(2)} ({profile.change.toFixed(2)}%)
           </Text>
         </View>
-        <View style={styles.topContent}>
+        {/* <View style={styles.topContent}>
           <Text style={{ fontSize: 18 }}>Day</Text>
           <Text style={styles.headerTitle}>{profile.day}</Text>
-        </View>
+        </View> */}
       </View>
       <View style={{ marginVertical: 10 }}>
         <StockMarquee data={data} />
