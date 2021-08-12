@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   TextInput,
   Button,
+  Image,
 } from "react-native";
 
 const DashboardScreen = ({ navigation }) => {
@@ -56,6 +57,16 @@ const DashboardScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+      <TouchableOpacity
+        style={styles.profileIconContainer}
+        onPress={() => navigation.navigate("ProfileScreen")}
+      >
+        <Image
+          style={styles.profileIcon}
+          source={require("../assets/profile-icon.png")}
+          onPress={() => navigation.navigate("ProfileScreen")}
+        />
+      </TouchableOpacity>
       <View style={styles.dashboard}>
         <Text style={{ textAlign: "center", marginVertical: "4%" }}>
           {" "}
@@ -81,10 +92,6 @@ const DashboardScreen = ({ navigation }) => {
         title="Go to Stock Screen"
         onPress={() => navigation.navigate("StockScreen")}
       />
-      <Button
-        title="Go to Profile Screen"
-        onPress={() => navigation.navigate("ProfileScreen")}
-      />
     </View>
   );
 };
@@ -92,20 +99,37 @@ const DashboardScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection: "column",
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "flex-start",
-    paddingTop: "20%",
     borderStyle: "solid",
     borderWidth: 1,
     borderColor: "black",
+    overflow: "scroll",
+  },
+  profileIconContainer: {
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    // borderWidth: 1,
+    // borderColor: "black",
+    // borderStyle: "solid",
+    width: "96%",
+    paddingTop: 10,
+  },
+  profileIcon: {
+    position: "relative",
+    right: 0,
+    resizeMode: "contain",
+    width: 40,
+    height: 40,
+    // borderWidth: 1,
+    // borderColor: "black",
   },
   dashboard: {
     height: "40%",
     width: "96%",
-    // borderStyle: 'solid',
-    // borderWidth: 1,
-    // borderColor: 'black',
+
     marginBottom: "5%",
   },
   order: {
