@@ -1,18 +1,26 @@
 import React, { useEffect, useState } from "react";
-import { Text, View, StyleSheet, Image, Dimensions, Button, TouchableOpacity } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  Image,
+  Dimensions,
+  Button,
+  TouchableOpacity,
+} from "react-native";
 import StockMarquee from "../components/StockMarquee";
 import { auth } from "../firebase/firebase";
+import { LinearGradient } from "expo-linear-gradient";
 
 const ProfileScreen = ({ navigation }) => {
-  
   const signOutUser = async () => {
     try {
-        await auth.signOut();
-        navigation.navigate('Auth');
+      await auth.signOut();
+      navigation.navigate("Auth");
     } catch (e) {
-        console.log(e);
+      console.log(e);
     }
-  }
+  };
 
   const [user, setUser] = useState({
     id: "NaN",
@@ -84,47 +92,62 @@ const ProfileScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <View style={[styles.topContainer, styles.subContainer]}>
-        <View style={styles.topContent}>
-          <Text style={{ fontSize: 18, color: "#083358" }}>Value</Text>
-          <Text
-            style={[
-              styles.headerTitle,
-              profile.change >= 0 ? { color: "green" } : { color: "red" },
-            ]}
-          >
-            ${profile.money.toFixed(2)} ({profile.change.toFixed(2)}%)
-          </Text>
+      <LinearGradient
+        colors={[
+          "#f6f6f6",
+          "#eadaf4",
+          "#efb9e4",
+          "#f994c3",
+          "#ff6c93",
+          "#f45888",
+          "#e8427d",
+          "#dc2672",
+          "#b0378b",
+          "#7a4493",
+          "#434889",
+          "#0f4471",
+        ]}
+        style={styles.linearGradient}
+      >
+        <View style={[styles.topContainer, styles.subContainer]}>
+          <View style={styles.topContent}>
+            <Text style={{ fontSize: 18 }}>Value</Text>
+            <Text
+              style={[
+                styles.headerTitle,
+                profile.change >= 0 ? { color: "green" } : { color: "red" },
+              ]}
+            >
+              ${profile.money.toFixed(2)} ({profile.change.toFixed(2)}%)
+            </Text>
+          </View>
+          <View style={styles.topContent}>
+            <Text style={{ fontSize: 18 }}>Day</Text>
+            <Text style={styles.headerTitle}>{profile.day}</Text>
+          </View>
         </View>
-
-        <View style={styles.topContent}>
-          <TouchableOpacity title="Logout" onPress={() => signOutUser()} style={{alignItems: "center"}}>
-            <Text style={{fontSize: 18, color: "#083358", marginBottom: 5}}>Logout</Text>
-            <Image source={require("../assets/exit.png")} style={{resizeMode: "contain", width: 22, height: 22}}></Image>
-          </TouchableOpacity>
+        <View style={{ marginVertical: 10 }}>
+          <StockMarquee data={data} />
         </View>
-      </View>
-      <View style={{ marginVertical: 10 }}>
-        <StockMarquee data={data} />
-      </View>
-      <View style={[styles.midContainer, styles.subContainer]}>
-        <View style={styles.midContent}>
-          <Text style={styles.headerTitle}>Hello {user.username}!</Text>
-          {/* <Text style={styles.headerTitle}>( {profile.occupation} )</Text> */}
+        <View style={[styles.midContainer, styles.subContainer]}>
+          <View style={styles.midContent}>
+            <Text style={styles.headerTitle}>Hello {user.username}!</Text>
+            {/* <Text style={styles.headerTitle}>( {profile.occupation} )</Text> */}
+          </View>
+          <View style={[styles.midContent, styles.catImageContainer]}>
+            <Image
+              style={styles.catImage}
+              source={require("../assets/Avatar1.png")}
+            />
+          </View>
+          <View style={styles.bottomContent}>
+            <Text style={styles.info}>ID: {user.id}</Text>
+            <Text style={styles.info}>Username: {user.username}</Text>
+            <Text style={styles.info}>Email: {user.email}</Text>
+            <Text style={styles.info}>Created Date: {user.createdAt}</Text>
+          </View>
         </View>
-        <View style={[styles.midContent, styles.catImageContainer]}>
-          <Image
-            style={styles.catImage}
-            source={require("../assets/Avatar1.png")}
-          />
-        </View>
-        <View style={styles.midContent}>
-          <Text style={styles.info}>ID: {user.id}</Text>
-          <Text style={styles.info}>Username: {user.username}</Text>
-          <Text style={styles.info}>Email: {user.email}</Text>
-          <Text style={styles.info}>Created Date: {user.createdAt}</Text>
-        </View>
-      </View>
+      </LinearGradient>
     </View>
   );
 };
@@ -136,6 +159,7 @@ const styles = StyleSheet.create({
   },
   subContainer: {
     marginVertical: 10,
+
     // borderStyle: "solid",
     // borderWidth: 1,
     // borderColor: "black",
@@ -161,6 +185,10 @@ const styles = StyleSheet.create({
     // borderWidth: 1,
     // borderColor: "black",
   },
+  bottomContent: {
+    alignItems: "center",
+    backgroundColor: "white",
+  },
   profileInfo: {
     flexDirection: "column",
   },
@@ -185,6 +213,13 @@ const styles = StyleSheet.create({
     borderWidth: 5,
     justifyContent: "center",
     alignItems: "center",
+  },
+  linearGradient: {
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 5,
+    height: "100%",
+    width: "100%",
   },
   catImage: {
     width: "90%",

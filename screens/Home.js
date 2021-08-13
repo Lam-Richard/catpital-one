@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import { auth } from '../firebase/firebase';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const HomeScreen = () => {
     

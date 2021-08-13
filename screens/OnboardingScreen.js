@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, Button, Image, Dimensions, TouchableOpacity, StyleSheet } from 'react-native';
 import Onboarding from 'react-native-onboarding-swiper';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const win = Dimensions.get('window');
 

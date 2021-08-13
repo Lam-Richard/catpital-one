@@ -11,6 +11,7 @@ import {
   Button,
 } from "react-native";
 import RNPickerSelect from "react-native-picker-select";
+import { LinearGradient } from 'expo-linear-gradient';
 
 const StockScreen = ({ route, navigation }) => {
   const { data } = route.params;
@@ -58,7 +59,7 @@ const StockScreen = ({ route, navigation }) => {
           <View
             style={{ flexDirection: "row", justifyContent: "space-between" }}
           >
-            <View style={{ marginRight: "10%" }}>
+            <View style={{ marginRight: "10%", backgroundColor: "white"}}>
               <Text>Shares owned: {data.shares}</Text>
               <Text>Bought price: ${data.boughtPrice}</Text>
               <Text>Daily Gain/Loss: ${data.lastChange * data.shares}</Text>
@@ -139,6 +140,13 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginTop: "2%",
     marginBottom: "2%",
+  },
+  linearGradient: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 5,
+    height: "100%",
+    width: "100%",
   },
   submit: {
     justifyContent: "center",
