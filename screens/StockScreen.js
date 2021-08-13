@@ -11,10 +11,22 @@ import {
   Button,
 } from "react-native";
 import RNPickerSelect from "react-native-picker-select";
-import { LinearGradient } from 'expo-linear-gradient';
+import { buySell } from "../tradingApi/trading";
 
-const StockScreen = ({ route, navigation }) => {
-  const { data } = route.params;
+const StockScreen = ({ data }) => {
+  const navigation = useNavigation();
+  const [shares, setShares] = useState(10);
+  const [symbol, setSymbol] = useState("COF");
+  const [side, setSide] = useState(null);
+  const [assets, setAssets] = useState(null);
+
+  async function placeOrder() {
+    if (side != null && !isNaN(shares)) {
+      const response = await buySell(symbol, shares, side);
+      return response;
+    }
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.banner}>
@@ -32,9 +44,10 @@ const StockScreen = ({ route, navigation }) => {
           <RNPickerSelect
             autosize={false}
             onValueChange={(value) => {
-              console.log(value);
+              setSide(value);
+              console.log(side);
             }}
-            // Will probably need to see what Alpaca supports
+            // Simplify to buy/sell on market/day
             items={[
               { label: "Buy", value: "Buy" },
               { label: "Sell", value: "Sell" },
@@ -44,11 +57,15 @@ const StockScreen = ({ route, navigation }) => {
         <TextInput
           style={styles.pickers}
           placeholder={"# of shares..."}
+          onChangeText={(value) => {
+            setShares(parseInt(value));
+            console.log(shares);
+          }}
         ></TextInput>
         <TouchableOpacity
           style={styles.submit}
-          onPress={() => {
-            console.log("submit");
+          onPress={async () => {
+            placeOrder();
           }}
         >
           <Text>Submit</Text>
@@ -59,7 +76,7 @@ const StockScreen = ({ route, navigation }) => {
           <View
             style={{ flexDirection: "row", justifyContent: "space-between" }}
           >
-            <View style={{ marginRight: "10%", backgroundColor: "white"}}>
+            <View style={{ marginRight: "10%", backgroundColor: "white" }}>
               <Text>Shares owned: {data.shares}</Text>
               <Text>Bought price: ${data.boughtPrice}</Text>
               <Text>Daily Gain/Loss: ${data.lastChange * data.shares}</Text>
@@ -72,8 +89,11 @@ const StockScreen = ({ route, navigation }) => {
               <Text>Last Price: ${data.lastPrice}</Text>
               <Text>
                 Last Change: {data.upDown}
-                {data.lastChange} ({data.upDown}
-                {data.percentChange}%)
+                {data.lastChange}
+              </Text>
+              <Text>
+                Change %: {data.upDown}
+                {data.percentChange}%
               </Text>
               <Text>Net Worth: ${data.lastPrice * data.shares}</Text>
             </View>
@@ -142,8 +162,8 @@ const styles = StyleSheet.create({
     marginBottom: "2%",
   },
   linearGradient: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     borderRadius: 5,
     height: "100%",
     width: "100%",

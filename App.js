@@ -15,7 +15,6 @@ import DashboardScreen from "./screens/DashboardScreen";
 import StockScreen from "./screens/StockScreen";
 import ProfileScreen from "./screens/Profile";
 import SearchScreen from "./screens/Search";
-import { trading } from "./tradingApi/trading";
 
 const Stack = createNativeStackNavigator();
 
@@ -30,6 +29,17 @@ const App = () => {
       unsubscribe();
     };
   });
+
+  const capitalOne = {
+    company: "Capital One",
+    ticker: "COF",
+    lastPrice: 174.55,
+    lastChange: 3.91,
+    percentChange: 2.29,
+    upDown: "+",
+    shares: 100,
+    boughtPrice: 8.31,
+  };
 
   const AuthStack = createNativeStackNavigator();
   const Tabs = createBottomTabNavigator();
@@ -72,8 +82,9 @@ const App = () => {
       <DashboardStack.Screen
         options={{ title: "Stock", ...headerOptions }}
         name="Stock"
-        component={StockScreen}
-      />
+      >
+        {() => <StockScreen data={capitalOne} />}
+      </DashboardStack.Screen>
       <DashboardStack.Screen
         options={{ title: "Profile", ...headerOptions }}
         name="Profile"

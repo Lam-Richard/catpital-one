@@ -1,6 +1,5 @@
-import { StatusBar } from "expo-status-bar";
 import { LinearGradient } from "expo-linear-gradient";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -10,6 +9,7 @@ import {
   TextInput,
   Button,
 } from "react-native";
+// import { getPositions, getOrders, getAccountData, getActiveAssets, buySell  } from '../tradingApi/trading';
 
 const DashboardScreen = ({ navigation }) => {
   const capitalOne = {
@@ -29,7 +29,7 @@ const DashboardScreen = ({ navigation }) => {
       <TouchableOpacity
         style={styles.ticker}
         onPress={() => {
-          navigation.navigate('Stock', {
+          navigation.navigate("Stock", {
             data: capitalOne,
           });
         }}
@@ -52,14 +52,25 @@ const DashboardScreen = ({ navigation }) => {
     );
   };
 
-  const SearchBar = () => {
-    return (
-      <TextInput
-        placeholder={"Search for companies, articles, or symbols..."}
-        style={styles.search}
-      ></TextInput>
-    );
-  };
+  // const SearchBar = () => {
+  //   return (
+  //     <TextInput
+  //       placeholder={"Search for companies, articles, or symbols..."}
+  //       style={styles.search}
+  //     ></TextInput>
+  //   );
+  // };
+
+  useEffect(() => {
+    // async function fetchData() {
+    //   const response = await getPositions();
+    //   console.log(response);
+    // }
+    // fetchData()
+    // return () => {
+    //   console.log("Unmounting...");
+    // }
+  }, []);
 
   return (
     <View style={styles.container}>
