@@ -21,6 +21,47 @@ const Stack = createNativeStackNavigator();
 const App = () => {
   const [user, setUser] = useState(null);
 
+  const [capitalOne, setCapitalOne] = useState({
+    company: "Capital One",
+    ticker: "COF",
+    lastPrice: 174.55,
+    lastChange: 3.91,
+    percentChange: 2.29,
+    upDown: "+",
+    shares: 0,
+    boughtPrice: 8.31,
+  });
+
+  // const [facebook, setFaceBook] = useState({
+  //   company: "Facebook",
+  //   ticker: "FB",
+  //   lastPrice: 362.65,
+  //   lastChange: 2.69,
+  //   percentChange: 0.75,
+  //   upDown: "+",
+  //   shares: 0,
+  // });
+
+  // const [apple, setApple] = useState({
+  //   company: "Apple",
+  //   ticker: "AAPL",
+  //   lastPrice: 148.89,
+  //   lastChange: 3.03,
+  //   percentChange: 2.08,
+  //   upDown: "+",
+  //   shares: 0,
+  // });
+
+  // const [amazon, setAmazon] = useState({
+  //   company: "Amazon",
+  //   ticker: "AMZN",
+  //   lastPrice: 3303.5,
+  //   lastChange: 11.39,
+  //   percentChange: 0.35,
+  //   upDown: "+",
+  //   shares: 0,
+  // });
+
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       setUser(user);
@@ -29,17 +70,6 @@ const App = () => {
       unsubscribe();
     };
   });
-
-  const capitalOne = {
-    company: "Capital One",
-    ticker: "COF",
-    lastPrice: 174.55,
-    lastChange: 3.91,
-    percentChange: 2.29,
-    upDown: "+",
-    shares: 100,
-    boughtPrice: 8.31,
-  };
 
   const AuthStack = createNativeStackNavigator();
   const Tabs = createBottomTabNavigator();
@@ -82,13 +112,14 @@ const App = () => {
       <DashboardStack.Screen
         options={{ title: "Dashboard", ...headerOptions }}
         name="Dashboard"
-        component={DashboardScreen}
-      />
+      >
+        {() => <DashboardScreen data={capitalOne} />}
+      </DashboardStack.Screen>
       <DashboardStack.Screen
         options={{ title: "Stock", ...headerOptions }}
         name="Stock"
       >
-        {() => <StockScreen data={capitalOne} />}
+        {() => <StockScreen data={capitalOne} setData={setCapitalOne} />}
       </DashboardStack.Screen>
       <DashboardStack.Screen
         options={{ title: "Profile", ...headerOptions }}
@@ -103,8 +134,9 @@ const App = () => {
       <SearchStack.Screen
         options={{ title: "Search", ...headerOptions }}
         name="Search"
-        component={SearchScreen}
-      />
+      >
+        {() => <SearchScreen data={capitalOne} />}
+      </SearchStack.Screen>
       <SearchStack.Screen
         options={{ title: "Stock", ...headerOptions }}
         name="Stock"

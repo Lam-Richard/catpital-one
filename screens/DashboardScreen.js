@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
 import React, { useEffect } from "react";
 import {
@@ -11,17 +12,8 @@ import {
 } from "react-native";
 // import { getPositions, getOrders, getAccountData, getActiveAssets, buySell  } from '../tradingApi/trading';
 
-const DashboardScreen = ({ navigation }) => {
-  const capitalOne = {
-    company: "Capital One",
-    ticker: "COF",
-    lastPrice: 174.55,
-    lastChange: 3.91,
-    percentChange: 2.29,
-    upDown: "+",
-    shares: 100,
-    boughtPrice: 8.32,
-  };
+const DashboardScreen = ({ data }) => {
+  const navigation = useNavigation();
 
   const facebook = {
     company: "Facebook",
@@ -63,7 +55,7 @@ const DashboardScreen = ({ navigation }) => {
         style={styles.ticker}
         onPress={() => {
           navigation.navigate("Stock", {
-            data: capitalOne,
+            data: data,
           });
         }}
       >
@@ -131,16 +123,16 @@ const DashboardScreen = ({ navigation }) => {
         </View>
         <ScrollView style={styles.dashboard}>
           {/* <ScrollView> */}
-          <Ticker data={capitalOne}></Ticker>
-          <Ticker data={facebook}></Ticker>
-          <Ticker data={apple}></Ticker>
-          <Ticker data={amazon}></Ticker>
-          <Ticker data={capitalOne}></Ticker>
-          <Ticker data={capitalOne}></Ticker>
-          <Ticker data={capitalOne}></Ticker>
-          <Ticker data={capitalOne}></Ticker>
-          <Ticker data={capitalOne}></Ticker>
-          <Ticker data={capitalOne}></Ticker>
+          <Ticker data={data}></Ticker>
+          {/* <Ticker data={data}></Ticker>
+          <Ticker data={data}></Ticker>
+          <Ticker data={data}></Ticker>
+          <Ticker data={data}></Ticker>
+          <Ticker data={data}></Ticker>
+          <Ticker data={data}></Ticker>
+          <Ticker data={data}></Ticker>
+          <Ticker data={data}></Ticker>
+          <Ticker data={data}></Ticker> */}
           {/* </ScrollView> */}
         </ScrollView>
       </LinearGradient>
