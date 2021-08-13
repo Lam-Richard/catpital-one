@@ -43,8 +43,8 @@ const OnboardingScreen = ({navigation}) => {
             image: <Image 
                     style={styles.images}
                     source={require('../assets/catbug2.png')} />,
-            title: 'Welcome to Catpital One',
-            subtitle: 'Get out of the rat race and into the cat race',
+            title: 'Welcome to Cat-pital One',
+            subtitle: 'It\'s not a rat race, it\'s a cat race',
           },
           {
             backgroundColor: '#fff',
@@ -60,7 +60,7 @@ const OnboardingScreen = ({navigation}) => {
                     style={styles.images}
                     source={require('../assets/catbug4.png')} />,
             title: 'Build Your Purrfect Future',
-            subtitle: 'something something get started',
+            subtitle: 'Let\'s get started :)',
           },
         ]}
       />

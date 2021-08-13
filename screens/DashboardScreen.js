@@ -15,6 +15,39 @@ import {
 const DashboardScreen = ({ data }) => {
   const navigation = useNavigation();
 
+  const facebook = {
+    company: "Facebook",
+    ticker: "FB",
+    lastPrice: 362.65,
+    lastChange: 2.69,
+    percentChange: 0.75,
+    upDown: "+",
+    shares: 45,
+    boughtPrice: 346.76,
+  };
+
+  const apple = {
+    company: "Apple",
+    ticker: "AAPL",
+    lastPrice: 148.89,
+    lastChange: 3.03,
+    percentChange: 2.08,
+    upDown: "+",
+    shares: 35,
+    boughtPrice: 138.29,
+  };
+
+  const amazon = {
+    company: "Amazon",
+    ticker: "AMZN",
+    lastPrice: 3303.5,
+    lastChange: 11.39,
+    percentChange: 0.36,
+    upDown: "+",
+    shares: 5,
+    boughtPrice: 2856.45,
+  };
+
   const Ticker = ({ data }) => {
     const backgroundColor = data.upDown == "+" ? "aquamarine" : "red";
     return (

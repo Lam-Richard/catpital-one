@@ -68,7 +68,6 @@ const StockScreen = ({ data, setData }) => {
           </Text>
         </View>
         <View style={styles.graphContainer}>
-          {/* <Text>A stock graph will probably go here</Text> */}
           <Image
             style={styles.stockGraph}
             source={require("../assets/stockgraph2.png")}
