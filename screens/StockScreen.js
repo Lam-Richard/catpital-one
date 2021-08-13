@@ -10,7 +10,7 @@ import {
   TouchableOpacity,
   TextInput,
   Button,
-  Image
+  Image,
 } from "react-native";
 import RNPickerSelect from "react-native-picker-select";
 import { buySell } from "../tradingApi/trading";
@@ -18,12 +18,18 @@ import { buySell } from "../tradingApi/trading";
 const StockScreen = ({ data }) => {
   const navigation = useNavigation();
   const [shares, setShares] = useState(10);
-  const [symbol, setSymbol] = useState("COF");
+  const [symbol, setSymbol] = useState("AAPL");
   const [side, setSide] = useState(null);
 
   async function placeOrder() {
     if (side != null && !isNaN(shares)) {
-      const response = await buySell(symbol, shares, side);
+      console.log({
+        symbol,
+        shares,
+        side: side.toLowerCase(),
+      });
+      const response = await buySell(symbol, shares, side.toLowerCase());
+      console.log(response);
       return response;
     }
   }
@@ -47,88 +53,90 @@ const StockScreen = ({ data }) => {
         ]}
         style={styles.linearGradient}
       >
-      <View style={styles.banner}>
-        <Text style={{fontSize: 24, fontWeight: "bold", color: "#0F4471"}}>
-          {data.company} ({data.ticker}) &nbsp;
-        </Text>
-      </View>
-      <View style={styles.graph}>    
-      <Image 
-            style={styles.image}
-            source={require('../assets/stockgraph1.png')} />
-      </View>
-      <Text style={styles.place}>Your Position</Text>
-      <View style={{ marginBottom: "5%" }}>
-        {data !== {} ? (
-          <View
-            style={styles.positionContainer}
-          >
-            <View style={{ marginRight: "10%", backgroundColor: "white" }}>
-              <Text>Shares owned: {data.shares}</Text>
-              <Text>Bought price: ${data.boughtPrice}</Text>
-              <Text>Daily Gain/Loss: ${data.lastChange * data.shares}</Text>
-              <Text>
-                Total Gain/Loss: $
-                {(data.lastPrice - data.boughtPrice) * data.shares}
-              </Text>
+        <View style={styles.banner}>
+          <Text style={{ fontSize: 24, fontWeight: "bold", color: "#0F4471" }}>
+            {data.company} ({data.ticker}) &nbsp;
+          </Text>
+        </View>
+        <View style={styles.graphContainer}>
+          <Image
+            style={styles.stockGraph}
+            source={require("../assets/stockgraph2.png")}
+          />
+        </View>
+        <Text style={styles.place}>Your Position</Text>
+        <View style={{ marginBottom: "5%" }}>
+          {data !== {} ? (
+            <View style={styles.positionContainer}>
+              <View style={{ marginRight: "10%", backgroundColor: "white" }}>
+                <Text>Shares owned: {data.shares}</Text>
+                <Text>Bought price: ${data.boughtPrice}</Text>
+                <Text>Daily Gain/Loss: ${data.lastChange * data.shares}</Text>
+                <Text>
+                  Total Gain/Loss: $
+                  {(data.lastPrice - data.boughtPrice) * data.shares}
+                </Text>
+              </View>
+              <View>
+                <Text>Last Price: ${data.lastPrice}</Text>
+                <Text>
+                  Last Change: {data.upDown}
+                  {data.lastChange}
+                </Text>
+                <Text>
+                  Change %: {data.upDown}
+                  {data.percentChange}%
+                </Text>
+                <Text>Net Worth: ${data.lastPrice * data.shares}</Text>
+              </View>
             </View>
+          ) : (
             <View>
               <Text>Last Price: ${data.lastPrice}</Text>
               <Text>
                 Last Change: {data.upDown}
-                {data.lastChange}
+                {data.lastChange} ({data.upDown}
+                {data.percentChange}%)
               </Text>
-              <Text>
-                Change %: {data.upDown}
-                {data.percentChange}%
-              </Text>
-              <Text>Net Worth: ${data.lastPrice * data.shares}</Text>
             </View>
-          </View>
-        ) : (
-          <View>
-            <Text>Last Price: ${data.lastPrice}</Text>
-            <Text>
-              Last Change: {data.upDown}
-              {data.lastChange} ({data.upDown}
-              {data.percentChange}%)
-            </Text>
-          </View>
-        )}
-      </View>
-      <Text style={styles.place}>Trade</Text>
-      <View style={styles.process}>
-        <View style={styles.pickers}>
-          <RNPickerSelect
-            autosize={false}
-            onValueChange={(value) => {
-              setSide(value);
-              console.log(side);
-            }}
-            // Simplify to buy/sell on market/day
-            items={[
-              { label: "Buy", value: "Buy" },
-              { label: "Sell", value: "Sell" },
-            ]}
-          ></RNPickerSelect>
+          )}
         </View>
-        <TextInput
-          style={styles.pickers}
-          placeholder={"# of shares"}
-          onChangeText={(value) => {
-            setShares(parseInt(value));
-            console.log(shares);
-          }}
-        ></TextInput>
-        
-      </View>
-      <TouchableOpacity
+        <Text style={styles.place}>Trade</Text>
+        <View style={styles.process}>
+          <View style={styles.pickers}>
+            <RNPickerSelect
+              autosize={false}
+              onValueChange={(value) => {
+                setSide(value);
+                console.log(side);
+              }}
+              // Simplify to buy/sell on market/day
+              items={[
+                { label: "Buy", value: "Buy" },
+                { label: "Sell", value: "Sell" },
+              ]}
+            ></RNPickerSelect>
+          </View>
+          <TextInput
+            style={styles.pickers}
+            placeholder={"# of shares"}
+            onChangeText={(value) => {
+              setShares(parseInt(value));
+              console.log(shares);
+            }}
+          ></TextInput>
+        </View>
+        <TouchableOpacity
           style={styles.submit}
           onPress={async () => {
             placeOrder();
           }}
         >
-          <Text style={{color: "#fff", letterSpacing: 1.5, fontWeight: "500"}}>Place Order</Text>
+          <Text
+            style={{ color: "#fff", letterSpacing: 1.5, fontWeight: "500" }}
+          >
+            Place Order
+          </Text>
         </TouchableOpacity>
       </LinearGradient>
     </View>
@@ -140,11 +148,11 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "flex-start",
-    fontSize: 16
+    fontSize: 16,
   },
-  banner: {
-  },
-  graph: {
+  banner: {},
+  graphContainer: {
+    position: "relative",
     backgroundColor: "#fff",
     marginTop: "5%",
     marginBottom: "1%",
@@ -157,11 +165,10 @@ const styles = StyleSheet.create({
     height: "40%",
     width: "98%",
   },
-  image: {
-    flex: 1,
-    width: '100%',
-    height: '1200%',
-    resizeMode: 'contain',
+  stockGraph: {
+    width: "100%",
+    height: "100%",
+    resizeMode: "contain",
   },
   pickers: {
     width: "50%",
@@ -182,13 +189,13 @@ const styles = StyleSheet.create({
     height: "5%",
     marginBottom: "5%",
   },
-  positionContainer: { 
-    flexDirection: "row", 
+  positionContainer: {
+    flexDirection: "row",
     justifyContent: "space-between",
     backgroundColor: "#fff",
     paddingHorizontal: "3%",
     paddingVertical: "3%",
-    borderRadius: 5
+    borderRadius: 5,
   },
   place: {
     width: "98%",
@@ -196,13 +203,13 @@ const styles = StyleSheet.create({
     marginBottom: "2%",
     fontSize: 20,
     color: "#0F4471",
-    fontWeight: "500"
+    fontWeight: "500",
   },
   linearGradient: {
     height: "100%",
     width: "100%",
     paddingHorizontal: "3%",
-    paddingVertical: "5%"
+    paddingVertical: "5%",
   },
   submit: {
     justifyContent: "center",
@@ -216,7 +223,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: "3%",
     paddingVertical: "4%",
     marginTop: 5,
-    color: "#fff"
+    color: "#fff",
   },
 });
 

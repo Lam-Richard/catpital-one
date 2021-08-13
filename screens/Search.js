@@ -10,56 +10,52 @@ import {
   Button,
 } from "react-native";
 import { getAllAssets } from "../tradingApi/trading";
-import SearchableDropdown from 'react-native-searchable-dropdown';
+import SearchableDropdown from "react-native-searchable-dropdown";
 
-const Ticker = ({data}) => {
+const Ticker = ({ data }) => {
   const backgroundColor = data.upDown == "+" ? "aquamarine" : "red";
-    return (
-      <TouchableOpacity
-        style={styles.ticker}
-        onPress={() => {
-          navigation.navigate("Stock", {
-            data: capitalOne,
-          });
-        }}
-      >
-        <Text>
-          {data.company} ({data.ticker}){"\n"}
-          <Text style={{ fontSize: 11, color: "gray" }}>
-            {data.shares} shares
-          </Text>
+  return (
+    <TouchableOpacity
+      style={styles.ticker}
+      onPress={() => {
+        navigation.navigate("Stock", {
+          data: capitalOne,
+        });
+      }}
+    >
+      <Text>
+        {data.company} ({data.ticker}){"\n"}
+        <Text style={{ fontSize: 11, color: "gray" }}>
+          {data.shares} shares
         </Text>
-        <View>
-          <Text style={{ fontWeight: "bold" }}>{data.lastPrice}</Text>
-          <Text style={{ backgroundColor: backgroundColor }}>
-            {" "}
-            {data.upDown}
-            {data.lastChange}
-          </Text>
-        </View>
-      </TouchableOpacity>
-    );
-}
+      </Text>
+      <View>
+        <Text style={{ fontWeight: "bold" }}>{data.lastPrice}</Text>
+        <Text style={{ backgroundColor: backgroundColor }}>
+          {" "}
+          {data.upDown}
+          {data.lastChange}
+        </Text>
+      </View>
+    </TouchableOpacity>
+  );
+};
 
 const SearchScreen = ({ navigation }) => {
   const [assets, setAssets] = useState([]);
   const [query, setQuery] = useState("");
 
   useEffect(() => {
-
-    
-
     async function fetchAssets() {
       const response = await getAllAssets();
       return response;
     }
-    fetchAssets().then(data => setAssets(data));
-  },[])
+    fetchAssets().then((data) => setAssets(data));
+  }, []);
 
   // useEffect(()=> {
   //   console.log("Assets:", assets);
   // },[assets])
-
 
   const capitalOne = {
     company: "Capital One",
@@ -79,8 +75,8 @@ const SearchScreen = ({ navigation }) => {
     lastChange: 2.69,
     percentChange: 0.75,
     upDown: "+",
-    shares: 0
-  }
+    shares: 0,
+  };
 
   const apple = {
     company: "Apple",
@@ -89,30 +85,32 @@ const SearchScreen = ({ navigation }) => {
     lastChange: 3.03,
     percentChange: 2.08,
     upDown: "+",
-    shares: 0 
-  }
+    shares: 0,
+  };
 
   const amazon = {
     company: "Amazon",
     ticker: "AMZN",
-    lastPrice: 3303.50,
+    lastPrice: 3303.5,
     lastChange: 11.39,
     percentChange: 0.35,
     upDown: "+",
-    shares: 0
-  }
+    shares: 0,
+  };
 
-  const SearchBar = ({assets}) => {
+  const SearchBar = ({ assets }) => {
     const [query, setQuery] = useState("");
     const [results, setResults] = useState([]);
 
-    const Result = ({asset}) => {
+    const Result = ({ asset }) => {
       return (
         <TouchableOpacity style={styles.ticker}>
-          <Text>{asset.name} ({asset.symbol})</Text>
+          <Text>
+            {asset.name} ({asset.symbol})
+          </Text>
         </TouchableOpacity>
-      )
-    }
+      );
+    };
 
     function changeResults() {
       if (query != "" && assets != []) {
@@ -124,33 +122,30 @@ const SearchScreen = ({ navigation }) => {
       }
     }
 
-    useEffect(()=> {
-      changeResults()
-    },[query])
+    useEffect(() => {
+      changeResults();
+    }, [query]);
 
     return (
-      <React.Fragment>
+      <View style={{ alignItems: "center" }}>
         <TextInput
-        placeholder={"Search for companies, articles, or symbols..."}
-        style={styles.search}
-        onChangeText={(value) => {setQuery(value)}}
-        >
-        </TextInput>
+          placeholder={"Search for companies, articles, or symbols..."}
+          style={styles.search}
+          onChangeText={(value) => {
+            setQuery(value);
+          }}
+        ></TextInput>
         <Ticker data={capitalOne}></Ticker>
         <Ticker data={facebook}></Ticker>
         <Ticker data={apple}></Ticker>
         <Ticker data={amazon}></Ticker>
-        </React.Fragment>
-        
-     
-  
+      </View>
+
       // <SearchableDropdown items={assets} >
-  
+
       // </SearchableDropdown>
     );
   };
-
-  
 
   return (
     <LinearGradient
@@ -182,8 +177,6 @@ const SearchScreen = ({ navigation }) => {
           Search
         </Text>
         <SearchBar assets={assets} style={styles.search} />
-       
-
       </View>
     </LinearGradient>
   );
@@ -192,8 +185,8 @@ const SearchScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   searchContainer: {
     //borderWidth: 1,
-    width: '98%',
-    paddingHorizontal: "5%",
+    width: "98%",
+    paddingHorizontal: "4%",
     height: "100%",
   },
   linearGradient: {
@@ -211,7 +204,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingHorizontal: 16,
     paddingVertical: 16,
-    width: '98%'
+    width: "98%",
   },
   ticker: {
     width: "98%",
@@ -228,7 +221,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     marginTop: 5,
     backgroundColor: "white",
-  }
+  },
 });
 
 export default SearchScreen;
