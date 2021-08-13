@@ -10,140 +10,53 @@ import {
   Button,
 } from "react-native";
 import { getAllAssets } from "../tradingApi/trading";
-import SearchableDropdown from "react-native-searchable-dropdown";
+import { useNavigation } from "@react-navigation/native";
 
-const Ticker = ({ data }) => {
-  const backgroundColor = data.upDown == "+" ? "aquamarine" : "red";
-  return (
-    <TouchableOpacity
-      style={styles.ticker}
-      onPress={() => {
-        navigation.navigate("Stock", {
-          data: capitalOne,
-        });
-      }}
-    >
-      <Text>
-        {data.company} ({data.ticker}){"\n"}
-        <Text style={{ fontSize: 11, color: "gray" }}>
-          {data.shares} shares
-        </Text>
-      </Text>
-      <View>
-        <Text style={{ fontWeight: "bold" }}>{data.lastPrice}</Text>
-        <Text style={{ backgroundColor: backgroundColor }}>
-          {" "}
-          {data.upDown}
-          {data.lastChange}
-        </Text>
-      </View>
-    </TouchableOpacity>
-  );
-};
+const SearchScreen = ({ data }) => {
+  const navigation = useNavigation();
 
-const SearchScreen = ({ navigation }) => {
-  const [assets, setAssets] = useState([]);
-  const [query, setQuery] = useState("");
-
-  useEffect(() => {
-    async function fetchAssets() {
-      const response = await getAllAssets();
-      return response;
-    }
-    fetchAssets().then((data) => setAssets(data));
-  }, []);
-
-  // useEffect(()=> {
-  //   console.log("Assets:", assets);
-  // },[assets])
-
-  const capitalOne = {
-    company: "Capital One",
-    ticker: "COF",
-    lastPrice: 174.55,
-    lastChange: 3.91,
-    percentChange: 2.29,
-    upDown: "+",
-    shares: 0,
-    boughtPrice: 8.31,
-  };
-
-  const facebook = {
-    company: "Facebook",
-    ticker: "FB",
-    lastPrice: 362.65,
-    lastChange: 2.69,
-    percentChange: 0.75,
-    upDown: "+",
-    shares: 0,
-  };
-
-  const apple = {
-    company: "Apple",
-    ticker: "AAPL",
-    lastPrice: 148.89,
-    lastChange: 3.03,
-    percentChange: 2.08,
-    upDown: "+",
-    shares: 0,
-  };
-
-  const amazon = {
-    company: "Amazon",
-    ticker: "AMZN",
-    lastPrice: 3303.5,
-    lastChange: 11.39,
-    percentChange: 0.35,
-    upDown: "+",
-    shares: 0,
-  };
-
-  const SearchBar = ({ assets }) => {
+  const SearchBar = () => {
     const [query, setQuery] = useState("");
-    const [results, setResults] = useState([]);
-
-    const Result = ({ asset }) => {
-      return (
-        <TouchableOpacity style={styles.ticker}>
-          <Text>
-            {asset.name} ({asset.symbol})
-          </Text>
-        </TouchableOpacity>
-      );
-    };
-
-    function changeResults() {
-      if (query != "" && assets != []) {
-        console.log(assets[0].symbol);
-        // console.log("RESULT:", result);
-        // setResults(result);
-      } else {
-        setResults([]);
-      }
-    }
-
-    useEffect(() => {
-      changeResults();
-    }, [query]);
-
     return (
       <View style={{ alignItems: "center" }}>
         <TextInput
           placeholder={"Search for companies, articles, or symbols..."}
           style={styles.search}
+          value={query}
           onChangeText={(value) => {
             setQuery(value);
           }}
         ></TextInput>
-        <Ticker data={capitalOne}></Ticker>
-        <Ticker data={facebook}></Ticker>
-        <Ticker data={apple}></Ticker>
-        <Ticker data={amazon}></Ticker>
       </View>
+    );
+  };
 
-      // <SearchableDropdown items={assets} >
-
-      // </SearchableDropdown>
+  const Ticker = ({ data }) => {
+    const backgroundColor = data.upDown == "+" ? "aquamarine" : "red";
+    return (
+      <TouchableOpacity
+        style={styles.ticker}
+        onPress={() => {
+          navigation.navigate("Stock", {
+            data: data,
+          });
+        }}
+      >
+        <Text>
+          {data.company} ({data.ticker}){"\n"}
+          <Text style={{ fontSize: 11, color: "gray" }}>
+            {data.shares} shares
+          </Text>
+        </Text>
+        <View>
+          <Text style={{ fontWeight: "bold" }}>{data.lastPrice}</Text>
+          <Text style={{ backgroundColor: backgroundColor }}>
+            {" "}
+            {data.upDown}
+            {data.lastChange}
+          </Text>
+        </View>
+      </TouchableOpacity>
     );
   };
 
@@ -176,7 +89,8 @@ const SearchScreen = ({ navigation }) => {
         >
           Search
         </Text>
-        <SearchBar assets={assets} style={styles.search} />
+        <SearchBar style={styles.search} />
+        <Ticker data={data} />
       </View>
     </LinearGradient>
   );

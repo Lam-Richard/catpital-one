@@ -15,24 +15,33 @@ import {
 import RNPickerSelect from "react-native-picker-select";
 import { buySell } from "../tradingApi/trading";
 
-const StockScreen = ({ data }) => {
+const StockScreen = ({ data, setData }) => {
   const navigation = useNavigation();
-  const [shares, setShares] = useState(10);
-  const [symbol, setSymbol] = useState("AAPL");
-  const [side, setSide] = useState(null);
 
-  async function placeOrder() {
-    if (side != null && !isNaN(shares)) {
+  console.log(data);
+
+  const [shares, setShares] = useState(0);
+  const [symbol, setSymbol] = useState("COF");
+  const [side, setSide] = useState("");
+
+  const placeOrder = () => {
+    console.log({
+      symbol,
+      shares,
+      side: side.toLowerCase(),
+    });
+    if (side && !isNaN(shares) && shares !== 0) {
       console.log({
         symbol,
         shares,
         side: side.toLowerCase(),
       });
-      const response = await buySell(symbol, shares, side.toLowerCase());
-      console.log(response);
-      return response;
+      setData((currentData) => ({
+        ...currentData,
+        shares: currentData.shares + shares,
+      }));
     }
-  }
+  };
 
   return (
     <View style={styles.container}>
@@ -127,12 +136,7 @@ const StockScreen = ({ data }) => {
             }}
           ></TextInput>
         </View>
-        <TouchableOpacity
-          style={styles.submit}
-          onPress={async () => {
-            placeOrder();
-          }}
-        >
+        <TouchableOpacity style={styles.submit} onPress={() => placeOrder()}>
           <Text
             style={{ color: "#fff", letterSpacing: 1.5, fontWeight: "500" }}
           >
