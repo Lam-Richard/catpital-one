@@ -28,7 +28,8 @@
     "react-native-screens": "~3.4.0",
     "react-native-searchable-dropdown": "^1.1.3",
     "react-native-text-ticker": "^1.13.0",
-    "react-native-web": "~0.13.12"
+    "react-native-web": "~0.13.12",
+    "react-native-webview": "^11.13.0"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0"
