@@ -124,6 +124,9 @@ const DashboardScreen = ({ data }) => {
         <ScrollView style={styles.dashboard}>
           {/* <ScrollView> */}
           <Ticker data={data}></Ticker>
+          <Ticker data={facebook}></Ticker>
+          <Ticker data={apple}></Ticker>
+          <Ticker data={amazon}></Ticker>
           {/* <Ticker data={data}></Ticker>
           <Ticker data={data}></Ticker>
           <Ticker data={data}></Ticker>

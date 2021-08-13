@@ -229,7 +229,7 @@ const App = () => {
   const RootStack = createNativeStackNavigator();
   const RootStackScreen = ({ user }) => (
     <RootStack.Navigator screenOptions={{ headerShown: false }}>
-      {!user ? (
+      {user ? (
         <RootStack.Screen
           name="App"
           component={TabsScreen}

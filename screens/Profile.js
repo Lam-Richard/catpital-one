@@ -42,7 +42,7 @@ const ProfileScreen = () => {
 
   const profile = {
     name: "Sprinkles",
-    money: 69.69,
+    money: 999.99,
     change: -6.9,
     day: 4,
     occupation: "Intern",
@@ -55,19 +55,19 @@ const ProfileScreen = () => {
       change: 2.29,
     },
     {
-      title: "COF",
-      price: 174.55,
-      change: -2.29,
+      title: "AMZN",
+      price: 3303.5,
+      change: 0.36,
     },
     {
-      title: "COF",
-      price: 174.55,
-      change: -2.29,
+      title: "AAPL",
+      price: 148.89,
+      change: 2.08,
     },
     {
-      title: "COF",
-      price: 174.55,
-      change: 2.29,
+      title: "FB",
+      price: 362.65,
+      change: 0.75,
     },
     {
       title: "COF",
