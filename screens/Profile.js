@@ -236,7 +236,7 @@ const styles = StyleSheet.create({
   linearGradient: {
     alignItems: "center",
     justifyContent: "center",
-    borderRadius: 5,
+    // borderRadius: 5,
     height: "100%",
     width: "100%",
     // borderStyle: "solid",
