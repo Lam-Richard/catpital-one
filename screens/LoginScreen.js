@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const LoginScreen = ({navigation}) => {
     return (
