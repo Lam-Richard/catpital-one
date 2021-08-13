@@ -53,7 +53,9 @@ const StockScreen = ({ data }) => {
         </Text>
       </View>
       <View style={styles.graph}>    
-        {/* <Text>A stock graph will probably go here</Text> */}
+      <Image 
+            style={styles.image}
+            source={require('../assets/stockgraph1.png')} />
       </View>
       <Text style={styles.place}>Your Position</Text>
       <View style={{ marginBottom: "5%" }}>
@@ -154,6 +156,12 @@ const styles = StyleSheet.create({
     borderColor: "#c7c7c7",
     height: "40%",
     width: "98%",
+  },
+  image: {
+    flex: 1,
+    width: '100%',
+    height: '1200%',
+    resizeMode: 'contain',
   },
   pickers: {
     width: "50%",

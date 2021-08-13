@@ -1,5 +1,4 @@
 import { StyleSheet } from "react-native";
-import OnboardingScreen from "./screens/OnboardingScreen";
 
 import React, { useState, useEffect } from "react";
 import { NavigationContainer, useLinkProps } from "@react-navigation/native";
@@ -9,6 +8,7 @@ import { setCustomText } from "react-native-global-props";
 import { auth } from "./firebase/firebase";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
+import OnboardingScreen from "./screens/OnboardingScreen";
 import RegisterScreen from "./screens/Register";
 import LoginScreen from "./screens/Login";
 import DashboardScreen from "./screens/DashboardScreen";
@@ -49,6 +49,11 @@ const App = () => {
 
   const AuthStackScreen = () => (
     <AuthStack.Navigator>
+      <AuthStack.Screen
+        name="Onboarding"
+        component={OnboardingScreen}
+        options={{ title: "Welcome", ...headerOptions }}
+        />
       <AuthStack.Screen
         name="Login"
         component={LoginScreen}
