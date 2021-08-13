@@ -6,8 +6,8 @@ export async function getAccountData() {
     return result;
 }
 
-export async function getActiveAssets() {
-    let response = await fetch(`${SERVER}/activeAssets`);
+export async function getAllAssets() {
+    let response = await fetch(`${SERVER}/allAssets`);
     let result = await response.json();
     return result;
 }

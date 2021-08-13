@@ -20,7 +20,6 @@ const StockScreen = ({ data }) => {
   const [shares, setShares] = useState(10);
   const [symbol, setSymbol] = useState("COF");
   const [side, setSide] = useState(null);
-  const [assets, setAssets] = useState(null);
 
   async function placeOrder() {
     if (side != null && !isNaN(shares)) {
