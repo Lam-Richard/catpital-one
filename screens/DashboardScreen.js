@@ -1,4 +1,4 @@
-import { StatusBar } from "expo-status-bar";
+import { LinearGradient } from "expo-linear-gradient";
 import React, { useEffect } from "react";
 import {
   StyleSheet,
@@ -8,9 +8,8 @@ import {
   TouchableOpacity,
   TextInput,
   Button,
-  Image,
 } from "react-native";
-import { getPositions, getOrders, getAccountData, getActiveAssets, buySell  } from '../tradingApi/trading';
+// import { getPositions, getOrders, getAccountData, getActiveAssets, buySell  } from '../tradingApi/trading';
 
 const DashboardScreen = ({ navigation }) => {
   const capitalOne = {
@@ -21,7 +20,7 @@ const DashboardScreen = ({ navigation }) => {
     percentChange: 2.29,
     upDown: "+",
     shares: 100,
-    boughtPrice: 8.31,
+    boughtPrice: 8.32,
   };
 
   const Ticker = ({ data }) => {
@@ -30,7 +29,9 @@ const DashboardScreen = ({ navigation }) => {
       <TouchableOpacity
         style={styles.ticker}
         onPress={() => {
-          console.log("Pressed");
+          navigation.navigate("Stock", {
+            data: capitalOne,
+          });
         }}
       >
         <Text>
@@ -60,7 +61,7 @@ const DashboardScreen = ({ navigation }) => {
   //   );
   // };
 
-  useEffect(()=> {
+  useEffect(() => {
     // async function fetchData() {
     //   const response = await getPositions();
     //   console.log(response);
@@ -69,44 +70,47 @@ const DashboardScreen = ({ navigation }) => {
     // return () => {
     //   console.log("Unmounting...");
     // }
-  },[])
+  }, []);
 
   return (
     <View style={styles.container}>
-      <View style={styles.profileIconContainer}>
-        <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
-          <Image
-            style={styles.profileIcon}
-            source={require("../assets/profile-icon.png")}
-          />
-        </TouchableOpacity>
-      </View>
-      <ScrollView style={styles.dashboard}>
-        <Text style={{ textAlign: "center", marginVertical: "4%" }}>
-          {" "}
-          My Stocks
-        </Text>
-        {/* <ScrollView> */}
-        <Ticker data={capitalOne}></Ticker>
-        <Ticker data={capitalOne}></Ticker>
-        <Ticker data={capitalOne}></Ticker>
-        <Ticker data={capitalOne}></Ticker>
-        <Ticker data={capitalOne}></Ticker>
-        <Ticker data={capitalOne}></Ticker>
-        <Ticker data={capitalOne}></Ticker>
-        <Ticker data={capitalOne}></Ticker>
-        <Ticker data={capitalOne}></Ticker>
-        <Ticker data={capitalOne}></Ticker>
-        {/* </ScrollView> */}
-        <Button
-          title="Go to Stock Screen"
-          onPress={() => navigation.navigate("Stock")}
-        />
-        <Button
-          title="Go to Search Screen"
-          onPress={() => navigation.navigate("Search")}
-        />
-      </ScrollView>
+      <LinearGradient
+        colors={[
+          "#f6f6f6",
+          "#eadaf4",
+          "#efb9e4",
+          "#f994c3",
+          "#ff6c93",
+          "#f45888",
+          "#e8427d",
+          "#dc2672",
+          "#b0378b",
+          "#7a4493",
+          "#434889",
+          "#0f4471",
+        ]}
+        style={styles.linearGradient}
+      >
+        <View style={styles.header}>
+          <Text style={{ fontSize: 20, fontWeight: "bold", color: "#0F4471" }}>
+            My Stocks
+          </Text>
+        </View>
+        <ScrollView style={styles.dashboard}>
+          {/* <ScrollView> */}
+          <Ticker data={capitalOne}></Ticker>
+          <Ticker data={capitalOne}></Ticker>
+          <Ticker data={capitalOne}></Ticker>
+          <Ticker data={capitalOne}></Ticker>
+          <Ticker data={capitalOne}></Ticker>
+          <Ticker data={capitalOne}></Ticker>
+          <Ticker data={capitalOne}></Ticker>
+          <Ticker data={capitalOne}></Ticker>
+          <Ticker data={capitalOne}></Ticker>
+          <Ticker data={capitalOne}></Ticker>
+          {/* </ScrollView> */}
+        </ScrollView>
+      </LinearGradient>
     </View>
   );
 };
@@ -114,23 +118,22 @@ const DashboardScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: "column",
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "flex-start",
-    borderStyle: "solid",
-    borderWidth: 1,
-    borderColor: "black",
+    // borderStyle: "solid",
+    // borderWidth: 1,
+    // borderColor: "black",
     overflow: "scroll",
   },
-  profileIconContainer: {
+  header: {
     flexDirection: "row",
-    justifyContent: "flex-end",
     // borderWidth: 1,
     // borderColor: "black",
     // borderStyle: "solid",
-    width: "96%",
-    paddingTop: 10,
+    width: "100%",
+    paddingHorizontal: 15,
+    paddingVertical: 15,
   },
   profileIcon: {
     position: "relative",
@@ -143,8 +146,10 @@ const styles = StyleSheet.create({
   },
   dashboard: {
     width: "96%",
-
-    marginBottom: "5%",
+    // borderStyle: 'solid',
+    // borderWidth: 1,
+    // borderColor: 'black',
+    // marginBottom: "5%",
   },
   end_day: {
     height: "10%",
@@ -155,6 +160,13 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "black",
     marginBottom: "5%",
+  },
+  linearGradient: {
+    alignItems: "center",
+    justifyContent: "center",
+    // borderRadius: 5,
+    height: "100%",
+    width: "100%",
   },
   ticker: {
     width: "98%",
@@ -169,6 +181,7 @@ const styles = StyleSheet.create({
     borderColor: "#c7c7c7",
     borderRadius: 10,
     marginBottom: 10,
+    backgroundColor: "white",
   },
 });
 

@@ -16,15 +16,12 @@ import { buySell } from "../tradingApi/trading";
 const StockScreen = ({ data }) => {
   const navigation = useNavigation();
   const [shares, setShares] = useState(10);
-  const [symbol, setSymbol] = useState('COF');
+  const [symbol, setSymbol] = useState("COF");
   const [side, setSide] = useState(null);
   const [assets, setAssets] = useState(null);
 
-  
-
-
-  async function placeOrder() { 
-    if ((side != null) && (!isNaN(shares))) {
+  async function placeOrder() {
+    if (side != null && !isNaN(shares)) {
       const response = await buySell(symbol, shares, side);
       return response;
     }
@@ -68,7 +65,7 @@ const StockScreen = ({ data }) => {
         <TouchableOpacity
           style={styles.submit}
           onPress={async () => {
-            placeOrder()
+            placeOrder();
           }}
         >
           <Text>Submit</Text>
@@ -79,7 +76,7 @@ const StockScreen = ({ data }) => {
           <View
             style={{ flexDirection: "row", justifyContent: "space-between" }}
           >
-            <View style={{ marginRight: "10%" }}>
+            <View style={{ marginRight: "10%", backgroundColor: "white" }}>
               <Text>Shares owned: {data.shares}</Text>
               <Text>Bought price: ${data.boughtPrice}</Text>
               <Text>Daily Gain/Loss: ${data.lastChange * data.shares}</Text>
@@ -92,8 +89,11 @@ const StockScreen = ({ data }) => {
               <Text>Last Price: ${data.lastPrice}</Text>
               <Text>
                 Last Change: {data.upDown}
-                {data.lastChange} ({data.upDown}
-                {data.percentChange}%)
+                {data.lastChange}
+              </Text>
+              <Text>
+                Change %: {data.upDown}
+                {data.percentChange}%
               </Text>
               <Text>Net Worth: ${data.lastPrice * data.shares}</Text>
             </View>
@@ -109,14 +109,6 @@ const StockScreen = ({ data }) => {
           </View>
         )}
       </View>
-      <Button
-        title="Go to Dashboard Screen"
-        onPress={() => navigation.navigate("DashboardScreen")}
-      />
-      <Button
-        title="Go to Profile Screen"
-        onPress={() => navigation.navigate("ProfileScreen")}
-      />
     </View>
   );
 };
@@ -168,6 +160,13 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginTop: "2%",
     marginBottom: "2%",
+  },
+  linearGradient: {
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 5,
+    height: "100%",
+    width: "100%",
   },
   submit: {
     justifyContent: "center",

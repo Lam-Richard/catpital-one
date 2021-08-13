@@ -64,6 +64,7 @@ class StockMarquee extends Component {
         });
         this.setState({ currentPosition: offset });
       } else {
+        // console.log(position);
         this.setState({ currentPosition: position });
       }
     }
