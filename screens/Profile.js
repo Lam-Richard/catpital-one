@@ -7,15 +7,17 @@ import {
   Dimensions,
   Button,
   TouchableOpacity,
+  ScrollView,
 } from "react-native";
 import StockMarquee from "../components/StockMarquee";
 import { auth } from "../firebase/firebase";
+import { LinearGradient } from "expo-linear-gradient";
+import Icon from "react-native-vector-icons/AntDesign";
 
-const ProfileScreen = ({ navigation }) => {
+const ProfileScreen = () => {
   const signOutUser = async () => {
     try {
       await auth.signOut();
-      // navigation.navigate("Auth");
     } catch (e) {
       console.log(e);
     }
@@ -90,56 +92,77 @@ const ProfileScreen = ({ navigation }) => {
   ];
 
   return (
-    <View style={styles.container}>
-      <View style={[styles.topContainer, styles.subContainer]}>
-        <View style={styles.topContent}>
-          <Text style={{ fontSize: 18, color: "#083358" }}>Value</Text>
-          <Text
-            style={[
-              styles.headerTitle,
-              profile.change >= 0 ? { color: "green" } : { color: "red" },
-            ]}
-          >
-            ${profile.money.toFixed(2)} ({profile.change.toFixed(2)}%)
-          </Text>
-        </View>
-      </View>
+    <View style={[styles.container, { position: "relative" }]}>
       <View style={{ marginVertical: 10 }}>
         <StockMarquee data={data} />
       </View>
-      <View style={[styles.midContainer, styles.subContainer]}>
-        <View style={styles.midContent}>
-          <Text style={styles.headerTitle}>Hello {user.username}!</Text>
-          {/* <Text style={styles.headerTitle}>( {profile.occupation} )</Text> */}
-        </View>
-        <View style={[styles.midContent, styles.catImageContainer]}>
-          <Image
-            style={styles.catImage}
-            source={require("../assets/Avatar1.png")}
-          />
-        </View>
-        <View style={styles.midContent}>
-          {/* <Text style={styles.info}>ID: {user.id}</Text> */}
-          <Text style={styles.info}>Username: {user.username}</Text>
-          <Text style={styles.info}>Email: {user.email}</Text>
-          <Text style={styles.info}>Created Date: {user.createdAt}</Text>
-        </View>
-        <View style={styles.midContent}>
-          <TouchableOpacity
-            title="Logout"
-            onPress={() => signOutUser()}
-            style={{ alignItems: "center" }}
-          >
-            <Text style={{ fontSize: 18, color: "#083358", marginBottom: 5 }}>
-              Logout
+      <LinearGradient
+        colors={[
+          "#f6f6f6",
+          "#eadaf4",
+          "#efb9e4",
+          "#f994c3",
+          "#ff6c93",
+          "#f45888",
+          "#e8427d",
+          "#dc2672",
+          "#b0378b",
+          "#7a4493",
+          "#434889",
+          "#0f4471",
+        ]}
+        style={styles.linearGradient}
+      >
+        <View style={[styles.topContainer, styles.subContainer]}>
+          <View style={styles.topContent}>
+            <Text style={{ fontSize: 18, color: "#083358" }}>Value</Text>
+            <Text
+              style={[
+                styles.headerTitle,
+                profile.change >= 0 ? { color: "green" } : { color: "red" },
+              ]}
+            >
+              ${profile.money.toFixed(2)} ({profile.change.toFixed(2)}%)
             </Text>
-            <Image
-              source={require("../assets/exit.png")}
-              style={{ resizeMode: "contain", width: 22, height: 22 }}
-            ></Image>
-          </TouchableOpacity>
+          </View>
         </View>
-      </View>
+        <View style={[styles.midContainer, styles.subContainer]}>
+          <View style={styles.midContent}>
+            <Text style={styles.headerTitle}>Hello {user.username}!</Text>
+            {/* <Text style={styles.headerTitle}>( {profile.occupation} )</Text> */}
+          </View>
+          <View style={[styles.midContent, styles.catImageContainer]}>
+            <Image
+              style={styles.catImage}
+              source={require("../assets/Avatar1.png")}
+            />
+          </View>
+          <View style={styles.midContent}>
+            {/* <Text style={styles.info}>ID: {user.id}</Text> */}
+            <Text style={styles.info}>Username: {user.username}</Text>
+            <Text style={styles.info}>Email: {user.email}</Text>
+            <Text style={styles.info}>Created Date: {user.createdAt}</Text>
+          </View>
+          <View style={styles.midContent}>
+            <TouchableOpacity
+              title="Logout"
+              onPress={() => signOutUser()}
+              style={{ alignItems: "center" }}
+            >
+              <Icon name="logout" size={30} color="#fff" />
+              <Text
+                style={{
+                  fontSize: 15,
+                  color: "#fff",
+                  marginVertical: 5,
+                }}
+              >
+                Logout
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </LinearGradient>
     </View>
   );
 };
@@ -168,13 +191,20 @@ const styles = StyleSheet.create({
   midContainer: {
     justifyContent: "space-evenly",
     alignItems: "center",
-    height: "75%",
+    height: "85%",
+    // borderStyle: "solid",
+    // borderWidth: 1,
+    // borderColor: "black",
   },
   midContent: {
     alignItems: "center",
     // borderStyle: "solid",
     // borderWidth: 1,
     // borderColor: "black",
+  },
+  bottomContent: {
+    alignItems: "center",
+    backgroundColor: "white",
   },
   profileInfo: {
     flexDirection: "column",
@@ -187,6 +217,8 @@ const styles = StyleSheet.create({
   },
   info: {
     fontSize: 15,
+    fontWeight: "bold",
+    color: "#fff",
   },
   catImageContainer: {
     borderRadius:
@@ -195,11 +227,23 @@ const styles = StyleSheet.create({
       ) / 2,
     width: Dimensions.get("window").width * 0.9,
     height: Dimensions.get("window").width * 0.5,
-    borderColor: "#FC3C3C",
+    borderColor: "#fff",
     backgroundColor: "#0F4471",
     borderWidth: 5,
     justifyContent: "center",
     alignItems: "center",
+  },
+  linearGradient: {
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 5,
+    height: "100%",
+    width: "100%",
+    // borderStyle: "solid",
+    // borderWidth: 1,
+    // borderColor: "black",
+    flex: 1,
+    flexDirection: "column",
   },
   catImage: {
     width: "90%",

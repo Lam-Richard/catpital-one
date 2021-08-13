@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { LinearGradient } from 'expo-linear-gradient';
 import { 
     StyleSheet, 
     Text, 
@@ -44,37 +45,43 @@ const LoginScreen = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
-            <TextInput
-                style={styles.inputStyle}
-                placeholder="Email"
-                value={fields.email}
-                autoCapitalize="none"
-                onChangeText={
-                    (val) => handleTextChange("email", val)
-                }
-            />
-            <TextInput
-                style={styles.inputStyle}
-                placeholder="Password"
-                value={fields.password}
-                autoCapitalize="none"
-                onChangeText={
-                    (val) => handleTextChange("password", val)
-                }
-                maxLength={15}
-                secureTextEntry={true}
-            />
-            <Button
-                color="#0F4471"
-                title="Login"
-                onPress={() => signUserIn()}
-            />
-            <Text 
-                style={styles.registerText}
-                onPress={() => navigation.navigate('Register')}
+            <LinearGradient
+                colors={['#f6f6f6', '#eadaf4', '#efb9e4', '#f994c3', '#ff6c93', '#f45888', '#e8427d', '#dc2672', '#b0378b', '#7a4493', '#434889', '#0f4471']}
+                style={styles.linearGradient}
             >
-                Not registered? Click here to register
-            </Text>                          
+                <TextInput
+                    style={styles.inputStyle}
+                    placeholder="Email"
+                    value={fields.email}
+                    autoCapitalize="none"
+                    onChangeText={
+                        (val) => handleTextChange("email", val)
+                    }
+                />
+                <TextInput
+                    style={styles.inputStyle}
+                    placeholder="Password"
+                    value={fields.password}
+                    autoCapitalize="none"
+                    onChangeText={
+                        (val) => handleTextChange("password", val)
+                    }
+                    maxLength={15}
+                    secureTextEntry={true}
+                />
+                <Button
+                    color="#0F4471"
+                    title="Login"
+                    onPress={() => signUserIn()}
+                />
+                <Text 
+                    style={styles.registerText}
+                    onPress={() => navigation.navigate('Register')}
+                >
+                    Not registered? Click here to register
+                </Text>                    
+            </LinearGradient>
+                  
         </View>
     );
 };
@@ -100,6 +107,13 @@ const styles = StyleSheet.create({
         color: '#FC3C3C',
         marginTop: 25,
         textAlign: 'center'
+    },
+    linearGradient: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 5,
+        height: "100%",
+        width: "100%",
     },
     preloader: {
         left: 0,

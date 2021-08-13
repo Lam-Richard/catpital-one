@@ -7,6 +7,7 @@ import {
     Button
 } from 'react-native';
 import { auth } from '../firebase/firebase';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const RegisterScreen = ({ navigation }) => {
     const [ fields, setFields ] = useState({
@@ -59,57 +60,63 @@ const RegisterScreen = ({ navigation }) => {
 
     return (
         <View style={styles.container}>  
-            <TextInput
-                style={styles.inputStyle}
-                placeholder="Name"
-                value={fields.username}
-                autoCapitalize="none"
-                onChangeText={
-                    (val) => handleTextChange("username", val)
-                }
-            />      
-            <TextInput
-                style={styles.inputStyle}
-                placeholder="Email"
-                value={fields.email}
-                autoCapitalize="none"
-                onChangeText={
-                    (val) => handleTextChange("email", val)
-                }
-            />
-            <TextInput
-                style={styles.inputStyle}
-                placeholder="Password"
-                value={fields.password}
-                autoCapitalize="none"
-                onChangeText={
-                    (val) => handleTextChange("password", val)
-                }
-                maxLength={15}
-                secureTextEntry={true}
-            />   
-            <TextInput
-                style={styles.inputStyle}
-                placeholder="Confirm Password"
-                value={fields.confirmPassword}
-                autoCapitalize="none"
-                onChangeText={
-                    (val) => handleTextChange("confirmPassword", val)
-                }
-                maxLength={15}
-                secureTextEntry={true}
-            />
-            <Button
-                color="#0F4471"
-                title="Register"
-                onPress={() => registerUser()}
-            />
-            <Text 
-                style={styles.loginText}
-                onPress={() => navigation.navigate('Login')}
+            <LinearGradient
+                colors={['#f6f6f6', '#eadaf4', '#efb9e4', '#f994c3', '#ff6c93', '#f45888', '#e8427d', '#dc2672', '#b0378b', '#7a4493', '#434889', '#0f4471']}
+                style={styles.linearGradient}
             >
-                Already registered? Click here to login
-            </Text>                          
+                <TextInput
+                    style={styles.inputStyle}
+                    placeholder="Name"
+                    value={fields.username}
+                    autoCapitalize="none"
+                    onChangeText={
+                        (val) => handleTextChange("username", val)
+                    }
+                />      
+                <TextInput
+                    style={styles.inputStyle}
+                    placeholder="Email"
+                    value={fields.email}
+                    autoCapitalize="none"
+                    onChangeText={
+                        (val) => handleTextChange("email", val)
+                    }
+                />
+                <TextInput
+                    style={styles.inputStyle}
+                    placeholder="Password"
+                    value={fields.password}
+                    autoCapitalize="none"
+                    onChangeText={
+                        (val) => handleTextChange("password", val)
+                    }
+                    maxLength={15}
+                    secureTextEntry={true}
+                />   
+                <TextInput
+                    style={styles.inputStyle}
+                    placeholder="Confirm Password"
+                    value={fields.confirmPassword}
+                    autoCapitalize="none"
+                    onChangeText={
+                        (val) => handleTextChange("confirmPassword", val)
+                    }
+                    maxLength={15}
+                    secureTextEntry={true}
+                />
+                <Button
+                    color="#0F4471"
+                    title="Register"
+                    onPress={() => registerUser()}
+                />
+                <Text 
+                    style={styles.loginText}
+                    onPress={() => navigation.navigate('Login')}
+                >
+                    Already registered? Click here to login
+                </Text>                
+            </LinearGradient>
+                      
         </View>
     );
 };
@@ -135,6 +142,13 @@ const styles = StyleSheet.create({
         color: '#FC3C3C',
         marginTop: 25,
         textAlign: 'center'
+    },
+    linearGradient: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 5,
+        height: "100%",
+        width: "100%",
     },
     preloader: {
         left: 0,
