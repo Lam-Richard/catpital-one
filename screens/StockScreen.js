@@ -13,9 +13,8 @@ import {
 import RNPickerSelect from "react-native-picker-select";
 import { LinearGradient } from 'expo-linear-gradient';
 
-const StockScreen = ({ data }) => {
-  const navigation = useNavigation();
-
+const StockScreen = ({ route, navigation }) => {
+  const { data } = route.params;
   return (
     <View style={styles.container}>
       <View style={styles.banner}>
@@ -90,14 +89,6 @@ const StockScreen = ({ data }) => {
           </View>
         )}
       </View>
-      <Button
-        title="Go to Dashboard Screen"
-        onPress={() => navigation.navigate("DashboardScreen")}
-      />
-      <Button
-        title="Go to Profile Screen"
-        onPress={() => navigation.navigate("ProfileScreen")}
-      />
     </View>
   );
 };
