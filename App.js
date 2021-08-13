@@ -15,6 +15,8 @@ import DashboardScreen from "./screens/DashboardScreen";
 import StockScreen from "./screens/StockScreen";
 import ProfileScreen from "./screens/Profile";
 import SearchScreen from "./screens/Search";
+import ArticlesScreen from "./screens/ArticlesScreen";
+import ArticleScreenWeb from "./screens/ArticleScreenWeb";
 
 const Stack = createNativeStackNavigator();
 
@@ -76,6 +78,7 @@ const App = () => {
   const ProfileStack = createNativeStackNavigator();
   const DashboardStack = createNativeStackNavigator();
   const SearchStack = createNativeStackNavigator();
+  const ArticlesStack = createNativeStackNavigator();
 
   const AuthStackScreen = () => (
     <AuthStack.Navigator>
@@ -150,6 +153,27 @@ const App = () => {
     </SearchStack.Navigator>
   );
 
+  const ArticlesStackScreen = () => (
+    <ArticlesStack.Navigator>
+      <ArticlesStack.Screen
+        options={{ title: "Articles", ...headerOptions }}
+        name="Articles"
+        component={ArticlesScreen}
+      />
+      <ArticlesStack.Screen
+        options={{ title: "Article", ...headerOptions }}
+        name="ArticleSingle"
+        component={ArticleScreenWeb}
+      />
+      <ArticlesStack.Screen
+        options={{ title: "Profile", ...headerOptions }}
+        name="Profile"
+        component={ProfileStackScreen}
+      />
+    </ArticlesStack.Navigator>
+  );
+  
+
   const TabsScreen = () => (
     <Tabs.Navigator
       screenOptions={({ route }) => ({
@@ -170,6 +194,8 @@ const App = () => {
           } else if (route.name === "ProfileStack") {
             iconName = "person-sharp";
             size += 5;
+          } else if (route.name === "ArticlesStack") {
+            iconName = "book-sharp";
           }
           return <Ionicons name={iconName} size={size} color={color} />;
         },
@@ -192,13 +218,18 @@ const App = () => {
         component={SearchStackScreen}
         options={{ tabBarLabel: "Search" }}
       />
+      <Tabs.Screen
+        name="ArticlesStack"
+        component={ArticlesStackScreen}
+        options={{ tabBarLabel: "Articles" }}
+      />
     </Tabs.Navigator>
   );
 
   const RootStack = createNativeStackNavigator();
   const RootStackScreen = ({ user }) => (
     <RootStack.Navigator screenOptions={{ headerShown: false }}>
-      {user ? (
+      {!user ? (
         <RootStack.Screen
           name="App"
           component={TabsScreen}
