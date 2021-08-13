@@ -1,18 +1,25 @@
 import React, { useEffect, useState } from "react";
-import { Text, View, StyleSheet, Image, Dimensions, Button, TouchableOpacity } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  Image,
+  Dimensions,
+  Button,
+  TouchableOpacity,
+} from "react-native";
 import StockMarquee from "../components/StockMarquee";
 import { auth } from "../firebase/firebase";
 
 const ProfileScreen = ({ navigation }) => {
-  
   const signOutUser = async () => {
     try {
-        await auth.signOut();
-        navigation.navigate('Auth');
+      await auth.signOut();
+      // navigation.navigate("Auth");
     } catch (e) {
-        console.log(e);
+      console.log(e);
     }
-  }
+  };
 
   const [user, setUser] = useState({
     id: "NaN",
@@ -96,13 +103,6 @@ const ProfileScreen = ({ navigation }) => {
             ${profile.money.toFixed(2)} ({profile.change.toFixed(2)}%)
           </Text>
         </View>
-
-        <View style={styles.topContent}>
-          <TouchableOpacity title="Logout" onPress={() => signOutUser()} style={{alignItems: "center"}}>
-            <Text style={{fontSize: 18, color: "#083358", marginBottom: 5}}>Logout</Text>
-            <Image source={require("../assets/exit.png")} style={{resizeMode: "contain", width: 22, height: 22}}></Image>
-          </TouchableOpacity>
-        </View>
       </View>
       <View style={{ marginVertical: 10 }}>
         <StockMarquee data={data} />
@@ -119,10 +119,25 @@ const ProfileScreen = ({ navigation }) => {
           />
         </View>
         <View style={styles.midContent}>
-          <Text style={styles.info}>ID: {user.id}</Text>
+          {/* <Text style={styles.info}>ID: {user.id}</Text> */}
           <Text style={styles.info}>Username: {user.username}</Text>
           <Text style={styles.info}>Email: {user.email}</Text>
           <Text style={styles.info}>Created Date: {user.createdAt}</Text>
+        </View>
+        <View style={styles.midContent}>
+          <TouchableOpacity
+            title="Logout"
+            onPress={() => signOutUser()}
+            style={{ alignItems: "center" }}
+          >
+            <Text style={{ fontSize: 18, color: "#083358", marginBottom: 5 }}>
+              Logout
+            </Text>
+            <Image
+              source={require("../assets/exit.png")}
+              style={{ resizeMode: "contain", width: 22, height: 22 }}
+            ></Image>
+          </TouchableOpacity>
         </View>
       </View>
     </View>
@@ -153,7 +168,7 @@ const styles = StyleSheet.create({
   midContainer: {
     justifyContent: "space-evenly",
     alignItems: "center",
-    height: "70%",
+    height: "75%",
   },
   midContent: {
     alignItems: "center",
